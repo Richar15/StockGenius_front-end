@@ -1,0 +1,55 @@
+<div class="products-container">
+  <h2>Lista de Productos</h2>
+
+  <div class="button-group">
+    <div class="left-buttons">
+      <button (click)="navigateToCreateProduct()" class="blue-button">
+        Crear Producto
+      </button>
+      <button (click)="navigateToMenu()" class="blue-button">Volver</button>
+      <button (click)="navigateToAddImage()" class="blue-button">
+        Agregar Imagen
+      </button>
+    </div>
+
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar producto"
+      />
+      <button (click)="onSearch()" class="search-button">
+        <img src="/assets/images/lupa.png" alt="Buscar" />
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="products.length === 0" class="alert info">
+    No existen datos, agregue un producto.
+  </div>
+
+  <div class="product-list">
+    <div *ngFor="let product of products" class="product-card">
+      <img
+        *ngIf="product.image"
+        [src]="product.image"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      <h3>{{ product.name }}</h3>
+      <p>Precio: {{ product.price }}</p>
+      <p>Cantidad: {{ product.amount }}</p>
+      <div class="button-group">
+        <button class="edit-button" (click)="navigateToEditProduct(product.id)">
+          Editar
+        </button>
+        <button
+          class="delete-button"
+          (click)="confirmDeleteProduct(product.name)"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
