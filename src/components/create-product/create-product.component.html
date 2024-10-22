@@ -1,0 +1,62 @@
+<div class="capsula-marron">
+  <div class="capsula-tablero">
+    <h2>Crear Producto</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Nombre:</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="product.name"
+          name="name"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="description">Descripción:</label>
+        <textarea
+          id="description"
+          [(ngModel)]="product.description"
+          name="description"
+          required
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="price">Precio:</label>
+        <input
+          type="number"
+          id="price"
+          [(ngModel)]="product.price"
+          name="price"
+          required
+          min="0"
+        />
+      </div>
+
+      <div>
+        <label for="amount">Cantidad:</label>
+        <input
+          type="number"
+          id="amount"
+          [(ngModel)]="product.amount"
+          name="amount"
+          required
+          min="0"
+        />
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="btn-save">Guardar</button>
+        <button type="button" class="btn-cancel" (click)="onCancel()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="successMessage" class="alert success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert error">{{ errorMessage }}</div>
+  </div>
+</div>
