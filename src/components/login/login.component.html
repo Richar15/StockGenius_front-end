@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-form">
+    <div class="title-container">
+      <h2>Iniciar Sesión</h2>
+      <p>---------------------------------------</p>
+    </div>
+    <div class="inputs-container">
+      <label>Contraseña</label>
+      <input type="password" [(ngModel)]="password"> 
+
+      <div class="button-container">
+        <button (click)="login()">Entrar</button>
+      </div>
+      <div class="reset-password-container">
+        <a [routerLink]="['/regenerate-password']" style="text-decoration: underline;">¿Olvido su contraseña?</a>
+      </div>
+    </div>
+    <div class="image-container">
+      <img src="/assets/images/inventoryloginf.png">
+    </div>
+  </div>
+</div>
+
+  
