@@ -6,15 +6,18 @@ import { StartComponent } from '../components/start/start.component';
 import { RegeneratePasswordComponentComponent } from '../components/regenerate-password-component/regenerate-password-component.component';
 
 const routes: Routes = [
-  { path: 'start', component: StartComponent },  // Ruta al StartComponent
-  { path: 'login', component: LoginComponent },  // Ruta al LoginComponent
-  { path: 'example', component: ExampleComponent},  // Ruta al ExampleComponent después del login
+  { path: 'start', component: StartComponent }, // Ruta al StartComponent
+  { path: 'login', component: LoginComponent }, // Ruta al LoginComponent
+  { path: 'example', component: ExampleComponent }, // Ruta al ExampleComponent después del login
   { path: '', redirectTo: '/start', pathMatch: 'full' },
-  { path: 'regenerate-password', component: RegeneratePasswordComponentComponent}
+  {
+    path: 'regenerate-password',
+    component: RegeneratePasswordComponentComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
