@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
 
-//Imports producto -- por Fabian
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CreateProductComponent } from '../components/create-product/create-product.component';
@@ -25,8 +24,8 @@ import { EditProductComponent } from '../components/edit-product/edit-product.co
   ],
   imports: [
     BrowserModule,
-    HttpClientModule, //Fabian
-    FormsModule, //Fabian
+    HttpClientModule,
+    FormsModule,
     AppRoutingModule,
     RouterModule,
   ],
