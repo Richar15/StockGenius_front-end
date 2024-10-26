@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ProductEntity } from '../models/product-entity'; // Asegúrate de importar tu interfaz
 
 @Component({
   selector: 'app-products',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  products: any[] = [];
+  products: ProductEntity[] = []; // Cambiar el tipo a ProductEntity
   searchTerm: string = '';
   selectedFile: File | null = null; // Para almacenar el archivo seleccionado
 
@@ -19,15 +20,17 @@ export class ProductsComponent implements OnInit {
   }
 
   fetchProducts() {
-    this.http.get('http://localhost:8081/products/listOfProducts').subscribe(
-      (response: any) => {
-        this.products = response;
-        this.loadProductImages();
-      },
-      () => {
-        console.error('No se pudieron cargar los productos');
-      }
-    );
+    this.http
+      .get<ProductEntity[]>('http://localhost:8081/products/listOfProducts')
+      .subscribe(
+        (response) => {
+          this.products = response;
+          this.loadProductImages();
+        },
+        () => {
+          console.error('No se pudieron cargar los productos');
+        }
+      );
   }
 
   loadProductImages(): void {
@@ -40,9 +43,9 @@ export class ProductsComponent implements OnInit {
           (blob: Blob) => {
             const reader = new FileReader();
             reader.onload = () => {
-              product.image = reader.result; // Asignar la imagen a la propiedad del producto
+              product.image = reader.result as string; // Asigna la URL de datos a la propiedad image
             };
-            reader.readAsDataURL(blob);
+            reader.readAsDataURL(blob); // Usa readAsDataURL para convertir el blob a una URL
           },
           () => {
             console.error(
@@ -63,7 +66,7 @@ export class ProductsComponent implements OnInit {
   uploadImage(productId: number) {
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('image', this.selectedFile); // Agrega el archivo al FormData
+      formData.append('imageFile', this.selectedFile); // Asegúrate de que el nombre coincida con el esperado por el backend
 
       this.http
         .post(`http://localhost:8081/products/${productId}/image`, formData)
@@ -87,9 +90,11 @@ export class ProductsComponent implements OnInit {
       return;
     }
     this.http
-      .get(`http://localhost:8081/products/searchProduct/${this.searchTerm}`)
+      .get<ProductEntity[]>(
+        `http://localhost:8081/products/searchProduct/${this.searchTerm}`
+      )
       .subscribe(
-        (response: any) => {
+        (response) => {
           this.products = response;
           this.loadProductImages();
         },

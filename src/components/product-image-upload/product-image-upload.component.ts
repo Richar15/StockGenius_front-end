@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+
+interface Product {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-product-image-upload',
@@ -8,55 +13,63 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-image-upload.component.css'],
 })
 export class ProductImageUploadComponent implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
   selectedProductId: number | null = null;
-  selectedFile: File | null = null;
+  selectedImage: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
+  private productsUrl = 'http://localhost:8081/products/listOfProducts';
+  private uploadUrl = 'http://localhost:8081/products';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    // Llamar al backend para obtener la lista de productos
-    this.http.get('http://localhost:8081/products/listOfProducts').subscribe(
-      (response: any) => {
-        this.products = response;
-      },
-      (error) => {
-        console.error('Error al cargar los productos:', error);
-      }
-    );
+    this.fetchProducts();
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    this.selectedFile = file;
+  fetchProducts(): void {
+    this.http.get<Product[]>(this.productsUrl).subscribe({
+      next: (data) => (this.products = data),
+      error: (error) => console.error('Error fetching products:', error),
+    });
   }
 
-  uploadImage(): void {
-    if (this.selectedProductId && this.selectedFile) {
-      const formData = new FormData();
-      formData.append('image', this.selectedFile);
+  onFileSelected(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      this.selectedImage = target.files[0];
 
-      this.http
-        .post(
-          `http://localhost:8081/products/${this.selectedProductId}/image`,
-          formData
-        )
-        .subscribe(
-          (response) => {
-            console.log('Imagen subida con éxito:', response);
-            // Opcional: Redirige a la lista de productos o muestra un mensaje
-            this.router.navigate(['/products']);
-          },
-          (error) => {
-            console.error('Error al subir la imagen:', error);
-          }
-        );
-    } else {
-      console.error('Debes seleccionar un producto y una imagen.');
+      // Crear vista previa de la imagen
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result !== undefined) {
+          this.imagePreview = e.target.result;
+        }
+      };
     }
   }
 
-  navigateToProducts(): void {
-    this.router.navigate(['/products']);
+  onSubmit(): void {
+    if (!this.selectedProductId || !this.selectedImage) return;
+
+    const formData = new FormData();
+    formData.append('imageFile', this.selectedImage);
+
+    this.http
+      .post(`${this.uploadUrl}/${this.selectedProductId}/image`, formData)
+      .subscribe({
+        next: (response) => {
+          alert('Imagen cargada exitosamente');
+          this.router.navigate(['/products']); // Redirige a la interfaz de productos
+        },
+        error: (error) => {
+          console.error('Error uploading image:', error);
+          alert('Hubo un problema al cargar la imagen');
+        },
+      });
+  }
+
+  cancel(): void {
+    this.router.navigate(['/products']); // Redirige a la interfaz de productos
   }
 }

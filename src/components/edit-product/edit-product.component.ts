@@ -10,7 +10,13 @@ import { ProductEntity } from '../models/product-entity';
 })
 export class EditProductComponent implements OnInit {
   productId: number;
-  product: ProductEntity = { name: '', description: '', price: 0, amount: 0 }; // Inicializa con un objeto vacío
+  product: ProductEntity = {
+    name: '',
+    description: '',
+    price: 0,
+    amount: 0,
+    image: null, // Inicializa la propiedad image como null
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +39,7 @@ export class EditProductComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener el producto:', error);
+          alert('Error al obtener el producto.'); // Agrega mensaje de error
         },
       });
   }
@@ -44,18 +51,29 @@ export class EditProductComponent implements OnInit {
       return;
     }
 
+    // Crea un objeto JSON para actualizar el producto
+    const updatedProduct = {
+      name: this.product.name,
+      description: this.product.description,
+      price: this.product.price,
+      amount: this.product.amount,
+      // Puedes agregar image si es necesario
+    };
+
+    // Actualiza el producto
     this.http
       .put<ProductEntity>(
         `http://localhost:8081/products/updateProduct/${this.productId}`,
-        this.product
+        updatedProduct
       )
       .subscribe({
         next: () => {
           alert('Producto actualizado exitosamente.');
-          this.router.navigate(['/products']); // Redirige a la lista de productos
+          this.router.navigate(['/products']); // Redirige a la lista de productos después de la actualización
         },
         error: (error) => {
           console.error('Error al actualizar el producto:', error);
+          alert('Error al actualizar el producto.'); // Agrega mensaje de error
         },
       });
   }
