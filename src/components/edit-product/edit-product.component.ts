@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductEntity } from '../models/product-entity';
 
 @Component({
@@ -15,19 +15,21 @@ export class EditProductComponent implements OnInit {
     description: '',
     price: 0,
     amount: 0,
-    image: null, // Inicializa la propiedad image como null
+    image: null,
   };
+  selectedImage: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
   ) {
-    this.productId = +this.route.snapshot.paramMap.get('id')!; // Obtiene el ID del producto de la URL
+    this.productId = +this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
-    this.getProduct(); // Llama a la función para obtener el producto
+    this.getProduct();
   }
 
   getProduct() {
@@ -35,32 +37,52 @@ export class EditProductComponent implements OnInit {
       .get<ProductEntity>(`http://localhost:8081/products/${this.productId}`)
       .subscribe({
         next: (data) => {
-          this.product = data; // Asigna los datos del producto
+          this.product = data;
+          if (this.product.image) {
+            // Obtener y mostrar la imagen actual
+            this.http
+              .get(`http://localhost:8081/products/${this.productId}/image`, {
+                responseType: 'blob',
+              })
+              .subscribe((blob) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  this.imagePreview = reader.result;
+                };
+                reader.readAsDataURL(blob);
+              });
+          }
         },
         error: (error) => {
           console.error('Error al obtener el producto:', error);
-          alert('Error al obtener el producto.'); // Agrega mensaje de error
+          alert('Error al obtener el producto.');
         },
       });
   }
 
+  onImageSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+    this.selectedImage = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
   updateProduct() {
-    // Verifica que price y amount no sean negativos
     if (this.product.price < 0 || this.product.amount < 0) {
       alert('Los valores de price y amount no pueden ser negativos.');
       return;
     }
 
-    // Crea un objeto JSON para actualizar el producto
     const updatedProduct = {
       name: this.product.name,
       description: this.product.description,
       price: this.product.price,
       amount: this.product.amount,
-      // Puedes agregar image si es necesario
     };
 
-    // Actualiza el producto
     this.http
       .put<ProductEntity>(
         `http://localhost:8081/products/updateProduct/${this.productId}`,
@@ -68,17 +90,42 @@ export class EditProductComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          alert('Producto actualizado exitosamente.');
-          this.router.navigate(['/products']); // Redirige a la lista de productos después de la actualización
+          if (this.selectedImage) {
+            this.uploadImage();
+          } else {
+            alert('Producto actualizado exitosamente.');
+            this.router.navigate(['/products']);
+          }
         },
         error: (error) => {
           console.error('Error al actualizar el producto:', error);
-          alert('Error al actualizar el producto.'); // Agrega mensaje de error
+          alert('Error al actualizar el producto.');
+        },
+      });
+  }
+
+  uploadImage() {
+    const formData = new FormData();
+    formData.append('imageFile', this.selectedImage!);
+
+    this.http
+      .put<ProductEntity>(
+        `http://localhost:8081/products/${this.productId}/image`,
+        formData
+      )
+      .subscribe({
+        next: () => {
+          alert('Producto e imagen actualizados exitosamente.');
+          this.router.navigate(['/products']);
+        },
+        error: (error) => {
+          console.error('Error al actualizar la imagen:', error);
+          alert('Error al actualizar la imagen.');
         },
       });
   }
 
   cancel() {
-    this.router.navigate(['/products']); // Navega de regreso a la lista de productos
+    this.router.navigate(['/products']);
   }
 }
