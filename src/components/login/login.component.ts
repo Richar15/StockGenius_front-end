@@ -20,7 +20,7 @@ export class LoginComponent {
     this.authService.login(this.password).subscribe(
       response => {
         if (response === 'Login successful') {
-          this.router.navigate(['/example']);
+          this.router.navigate(['/menu']);
         } else {
           Swal.fire({
             icon: 'error',

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
 import { LoginComponent } from '../components/login/login.component';
-import { ExampleComponent } from '../components/example/example.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ɵBrowserAnimationBuilder } from '@angular/animations';
@@ -24,7 +23,6 @@ import { MenucomComponent } from '../components/menucom/menucom.component';
     AppComponent,
     StartComponent,
     LoginComponent,
-    ExampleComponent,
     RegeneratePasswordComponentComponent,
     ProductsComponent,
     CreateProductComponent,
