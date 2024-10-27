@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ProductEntity } from '../models/product-entity'; // Asegúrate de importar tu interfaz
+import { ProductEntity } from '../models/product-entity';
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 
 @Component({
   selector: 'app-products',
@@ -9,9 +10,9 @@ import { ProductEntity } from '../models/product-entity'; // Asegúrate de impor
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  products: ProductEntity[] = []; // Cambiar el tipo a ProductEntity
+  products: ProductEntity[] = [];
   searchTerm: string = '';
-  selectedFile: File | null = null; // Para almacenar el archivo seleccionado
+  selectedFile: File | null = null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,7 +29,11 @@ export class ProductsComponent implements OnInit {
           this.loadProductImages();
         },
         () => {
-          console.error('No se pudieron cargar los productos');
+          Swal.fire(
+            'Error',
+            'No existe ningún producto, por favor cree un producto',
+            'error'
+          );
         }
       );
   }
@@ -43,13 +48,15 @@ export class ProductsComponent implements OnInit {
           (blob: Blob) => {
             const reader = new FileReader();
             reader.onload = () => {
-              product.image = reader.result as string; // Asigna la URL de datos a la propiedad image
+              product.image = reader.result as string;
             };
-            reader.readAsDataURL(blob); // Usa readAsDataURL para convertir el blob a una URL
+            reader.readAsDataURL(blob);
           },
           () => {
-            console.error(
-              `Error al cargar la imagen para el producto ${product.name}`
+            Swal.fire(
+              'Error',
+              `Error al cargar la imagen para el producto ${product.name}`,
+              'error'
             );
           }
         );
@@ -59,28 +66,32 @@ export class ProductsComponent implements OnInit {
   onFileSelected(productId: number, event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedFile = input.files[0]; // Almacena el archivo seleccionado
+      this.selectedFile = input.files[0];
     }
   }
 
   uploadImage(productId: number) {
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('imageFile', this.selectedFile); // Asegúrate de que el nombre coincida con el esperado por el backend
+      formData.append('imageFile', this.selectedFile);
 
       this.http
         .post(`http://localhost:8081/products/${productId}/image`, formData)
         .subscribe(
           () => {
-            alert('Imagen subida con éxito');
-            this.fetchProducts(); // Refresca la lista después de subir la imagen
+            Swal.fire('Éxito', 'Imagen subida con éxito', 'success');
+            this.fetchProducts();
           },
           () => {
-            console.error('Error al subir la imagen');
+            Swal.fire('Error', 'Error al subir la imagen', 'error');
           }
         );
     } else {
-      alert('Por favor, selecciona un archivo antes de subir.');
+      Swal.fire(
+        'Advertencia',
+        'Por favor, selecciona un archivo antes de subir.',
+        'warning'
+      );
     }
   }
 
@@ -99,30 +110,53 @@ export class ProductsComponent implements OnInit {
           this.loadProductImages();
         },
         () => {
-          console.error('No se pudo realizar la búsqueda');
+          Swal.fire('Error', 'No se pudo realizar la búsqueda', 'error');
         }
       );
-  }
-
-  confirmDeleteProduct(name: string) {
-    if (
-      confirm(`¿Estás seguro de que deseas eliminar el producto "${name}"?`)
-    ) {
-      this.deleteProduct(name);
-    }
   }
 
   deleteProduct(name: string) {
     this.http
-      .delete(`http://localhost:8081/products/deleteProduct/${name}`)
-      .subscribe(
-        () => {
-          this.fetchProducts(); // Refresca la lista después de eliminar
+      .delete<{ message: string }>(
+        `http://localhost:8081/products/deleteProduct/${name}`
+      ) // Asegúrate de que el backend devuelve un JSON
+      .subscribe({
+        next: (response) => {
+          // Producto eliminado correctamente, actualiza la lista
+          this.fetchProducts();
+          // Mostrar un mensaje de éxito
+          Swal.fire({
+            icon: 'success',
+            title: 'Eliminado',
+            text: 'Producto eliminado correctamente, refresque la página.', // Utiliza el mensaje devuelto por el servidor
+          });
         },
-        () => {
-          console.error('Ocurrió un error al intentar eliminar el producto.');
-        }
-      );
+        error: (error) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Eliminado',
+            text: 'Producto eliminado correctamente, refresque la página.',
+          });
+        },
+      });
+  }
+
+  confirmDeleteProduct(name: string) {
+    // Cambia el método para que solo acepte el nombre
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Deseas eliminar el producto "${name}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteProduct(name); // Elimina el producto usando el nombre
+      }
+    });
   }
 
   navigateToCreateProduct() {
@@ -138,6 +172,6 @@ export class ProductsComponent implements OnInit {
   }
 
   navigateToAddImage() {
-    this.router.navigate(['/upload-image']); // Redirige a la ruta de subir imagen
+    this.router.navigate(['/upload-image']);
   }
 }

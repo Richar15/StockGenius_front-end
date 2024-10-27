@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ProductEntity } from '../models/product-entity';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-product',
@@ -53,9 +54,12 @@ export class EditProductComponent implements OnInit {
               });
           }
         },
-        error: (error) => {
-          console.error('Error al obtener el producto:', error);
-          alert('Error al obtener el producto.');
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al cargar el producto',
+          });
         },
       });
   }
@@ -72,7 +76,11 @@ export class EditProductComponent implements OnInit {
 
   updateProduct() {
     if (this.product.price < 0 || this.product.amount < 0) {
-      alert('Los valores de price y amount no pueden ser negativos.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Valores inválidos',
+        text: 'Los valores de precio y cantidad no pueden ser negativos.',
+      });
       return;
     }
 
@@ -93,13 +101,21 @@ export class EditProductComponent implements OnInit {
           if (this.selectedImage) {
             this.uploadImage();
           } else {
-            alert('Producto actualizado exitosamente.');
-            this.router.navigate(['/products']);
+            Swal.fire({
+              icon: 'success',
+              title: 'Producto Actualizado',
+              text: 'Producto actualizado exitosamente.',
+            }).then(() => {
+              this.router.navigate(['/products']);
+            });
           }
         },
-        error: (error) => {
-          console.error('Error al actualizar el producto:', error);
-          alert('Error al actualizar el producto.');
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al actualizar el producto.',
+          });
         },
       });
   }
@@ -115,12 +131,20 @@ export class EditProductComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          alert('Producto e imagen actualizados exitosamente.');
-          this.router.navigate(['/products']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Imagen Actualizada',
+            text: 'Producto e imagen actualizados exitosamente.',
+          }).then(() => {
+            this.router.navigate(['/products']);
+          });
         },
-        error: (error) => {
-          console.error('Error al actualizar la imagen:', error);
-          alert('Error al actualizar la imagen.');
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al actualizar la imagen.',
+          });
         },
       });
   }

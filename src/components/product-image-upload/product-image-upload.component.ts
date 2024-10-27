@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 
 interface Product {
   id: number;
@@ -30,7 +31,10 @@ export class ProductImageUploadComponent implements OnInit {
   fetchProducts(): void {
     this.http.get<Product[]>(this.productsUrl).subscribe({
       next: (data) => (this.products = data),
-      error: (error) => console.error('Error fetching products:', error),
+      error: (error) => {
+        // Reemplaza la alerta con SweetAlert2
+        Swal.fire('Error', 'Error al cargar los productos.', 'error');
+      },
     });
   }
 
@@ -59,12 +63,16 @@ export class ProductImageUploadComponent implements OnInit {
       .post(`${this.uploadUrl}/${this.selectedProductId}/image`, formData)
       .subscribe({
         next: (response) => {
-          alert('Imagen cargada exitosamente');
-          this.router.navigate(['/products']); // Redirige a la interfaz de productos
+          // Reemplaza la alerta con SweetAlert2
+          Swal.fire('Éxito', 'Imagen cargada exitosamente', 'success').then(
+            () => {
+              this.router.navigate(['/products']); // Redirige a la interfaz de productos
+            }
+          );
         },
         error: (error) => {
-          console.error('Error uploading image:', error);
-          alert('Hubo un problema al cargar la imagen');
+          // Reemplaza la alerta con SweetAlert2
+          Swal.fire('Error', 'Hubo un problema al cargar la imagen', 'error');
         },
       });
   }

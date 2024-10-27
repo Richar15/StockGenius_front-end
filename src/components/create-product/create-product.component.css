@@ -63,20 +63,3 @@ textarea {
   background-color: #c82333; /* Color más oscuro al pasar el puntero sobre cancelar */
   transform: scale(1.05); /* Aumenta ligeramente el botón al pasar el puntero */
 }
-
-.alert {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.alert.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.alert.error {
-  background-color: #f8d7da;
-  color: #721c24;
-}

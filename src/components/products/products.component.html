@@ -24,10 +24,6 @@
     </div>
   </div>
 
-  <div *ngIf="products.length === 0" class="alert info">
-    No existen datos, agregue un producto.
-  </div>
-
   <div class="product-list">
     <div *ngFor="let product of products" class="product-card">
       <img

@@ -12,6 +12,7 @@ import { ProductsComponent } from '../components/products/products.component';
 import { ProductImageUploadComponent } from '../components/product-image-upload/product-image-upload.component';
 import { RouterModule } from '@angular/router';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditProductComponent } from '../components/edit-product/edit-product.co
     FormsModule,
     AppRoutingModule,
     RouterModule,
+    SweetAlert2Module.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
