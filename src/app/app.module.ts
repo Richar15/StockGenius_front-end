@@ -17,6 +17,7 @@ import { ProductsComponent } from '../components/products/products.component';
 import { CreateProductComponent } from '../components/create-product/create-product.component';
 import { ProductImageUploadComponent } from '../components/product-image-upload/product-image-upload.component';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
+import { MenucomComponent } from '../components/menucom/menucom.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EditProductComponent } from '../components/edit-product/edit-product.co
     CreateProductComponent,
     ProductImageUploadComponent,
     EditProductComponent,
+    MenucomComponent
   ],
   imports: [
     BrowserModule,

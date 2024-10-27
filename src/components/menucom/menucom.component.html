@@ -1,0 +1,61 @@
+<!-- menucom.component.html -->
+<nav>
+    <ul>
+      <li><a routerLink="/productos">Productos</a></li>
+      <li><a routerLink="/clientes">Clientes</a></li>
+      <li><a routerLink="/ventas">Ventas</a></li>
+      <li><a routerLink="/cotizacion">Cotización</a></li>
+      <li><a routerLink="/contactos">Contactos</a></li>
+    </ul>
+  </nav>
+  
+  <button 
+    (click)="toggleProductDetails()" 
+    class="add-purchase-button"
+    [class.initial]="!showProductDetails"
+    [class.moved]="showProductDetails">
+    Agregar compra
+  </button>
+  
+  <div *ngIf="showProductDetails" class="product-details">
+    <div class="product-form">
+      <div class="select-container">
+        <label style="font-size: 20px; margin-left: 40px;">Selecciona los Productos</label>
+        <select>
+          <option>Yuca</option>
+        </select>
+      </div>
+  
+      <div class="product-info">
+        <div class="info-row">
+          <label>Nombre:</label>
+          <span>{{ selectedProduct.name }}</span>
+        </div>
+        <div class="info-row">
+          <label>Descripción:</label>
+          <span>{{ selectedProduct.description }}</span>
+        </div>
+        <div class="info-row">
+          <label>Precio:</label>
+          <span>${{ selectedProduct.price }}</span>
+        </div>
+        <div class="info-row">
+          <label>Cantidad:</label>
+          <input type="number" [(ngModel)]="selectedProduct.quantity" min="1">
+        </div>
+      </div>
+  
+      <div class="image-placeholder">
+        IMG
+      </div>
+  
+      <div class="client-section">
+        <select class="client-select">
+          <option value="">client</option>
+        </select>
+        <button class="action-button">Agregar cliente</button>
+      </div>
+      
+      <button class="action-button" (click)="addToCart()">Agregar compra</button>
+    </div>
+  </div>
