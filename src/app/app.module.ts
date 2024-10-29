@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
@@ -15,12 +14,10 @@ import { CreateProductComponent } from '../components/create-product/create-prod
 import { ProductImageUploadComponent } from '../components/product-image-upload/product-image-upload.component';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
 import { MenucomComponent } from '../components/menucom/menucom.component';
-<<<<<<< HEAD
-import { RouterModule } from '@angular/router';
-=======
 import { QuotationComponent } from '../components/quotation/quotation.component';
 import { ContactComponent } from '../components/contact/contact.component';
->>>>>>> richard
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -43,14 +40,12 @@ import { ContactComponent } from '../components/contact/contact.component';
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     CommonModule,
-<<<<<<< HEAD
-    RouterModule
-=======
+    RouterModule,
     BrowserModule,
     ReactiveFormsModule
->>>>>>> richard
+
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

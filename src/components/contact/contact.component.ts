@@ -30,8 +30,8 @@ export class ContactComponent {
       name: 'Fabian Ricardo Espinosa Pastrana',
       role: 'Full-Stack Developer y Diseñador ui/ux',
       socialMedia: {
-        github: 'https://github.com/carlosrodriguez',
-        linkedin: 'https://linkedin.com/in/carlosrodriguez',
+        github: 'https://github.com/thefabobian',
+        linkedin: 'https://www.linkedin.com/in/fabian-espinosa-a38154261',
         
       }
     },
