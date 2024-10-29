@@ -24,10 +24,6 @@
     </div>
   </div>
 
-  <div *ngIf="products.length === 0" class="alert info">
-    No existen datos, agregue un producto.
-  </div>
-
   <div class="product-list">
     <div *ngFor="let product of products" class="product-card">
       <img
@@ -40,7 +36,10 @@
       <p>Precio: {{ product.price }}</p>
       <p>Cantidad: {{ product.amount }}</p>
       <div class="button-group">
-        <button class="edit-button" (click)="navigateToEditProduct(product.id)">
+        <button
+          class="edit-button"
+          (click)="navigateToEditProduct(product.id || 0)"
+        >
           Editar
         </button>
         <button

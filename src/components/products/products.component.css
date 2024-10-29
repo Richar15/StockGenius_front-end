@@ -58,15 +58,6 @@ input[type="text"] {
   height: auto; /* Mantener proporción */
 }
 
-.alert {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #f3b5b5; /* Fondo rojo claro para información */
-  color: #0a2c12; /* Texto oscuro */
-}
-
 .product-list {
   display: flex; /* Habilitar flexbox para los productos */
   flex-wrap: wrap; /* Permitir que los productos se envuelvan */
@@ -87,10 +78,12 @@ input[type="text"] {
   align-items: center; /* Centra el contenido horizontalmente */
 }
 
-.product-card img {
-  width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho del contenedor */
-  height: auto; /* Mantener la proporción de la imagen */
-  border-radius: 5px; /* Bordes redondeados para la imagen */
+.product-image {
+  width: 150px; /* Ajusta el ancho fijo que desees */
+  height: 150px; /* Ajusta la altura fija que desees */
+  object-fit: cover; /* Recorta la imagen para que encaje en el contenedor sin deformarse */
+  display: block; /* Asegura que sea un bloque */
+  margin: 0 auto; /* Centra la imagen si es necesario */
 }
 
 .product-card h3 {

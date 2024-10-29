@@ -1,27 +1,45 @@
 <div class="image-upload-container">
-  <h2>Agregar Imagen a Producto</h2>
+  <h2>Subir Imagen del Producto</h2>
 
-  <!-- Formulario para seleccionar producto y subir imagen -->
-  <form (submit)="uploadImage()">
+  <form (ngSubmit)="onSubmit()">
+    <!-- Lista desplegable de productos -->
     <div class="form-group">
-      <label for="product">Selecciona un Producto:</label>
-      <select id="product" [(ngModel)]="selectedProductId" name="product">
+      <label for="productSelect">Selecciona el producto:</label>
+      <select
+        id="productSelect"
+        [(ngModel)]="selectedProductId"
+        name="product"
+        required
+      >
         <option *ngFor="let product of products" [value]="product.id">
           {{ product.name }}
         </option>
       </select>
     </div>
 
+    <!-- Campo para seleccionar la imagen -->
     <div class="form-group">
-      <label for="image">Seleccionar Imagen:</label>
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <label for="imageFile">Selecciona una imagen:</label>
+      <input
+        type="file"
+        id="imageFile"
+        (change)="onFileSelected($event)"
+        required
+      />
     </div>
 
+    <!-- Botones -->
     <div class="button-group">
-      <button type="submit" class="blue-button">Guardar Imagen</button>
-      <button type="button" (click)="navigateToProducts()" class="blue-button">
-        Cancelar
+      <button type="submit" [disabled]="!selectedProductId || !selectedImage">
+        Guardar
       </button>
+      <button type="button" (click)="cancel()">Cancelar</button>
+    </div>
+
+    <!-- Vista previa de la imagen seleccionada -->
+    <div *ngIf="imagePreview" class="image-preview">
+      <h3>Vista previa:</h3>
+      <img [src]="imagePreview" alt="Vista previa de la imagen" />
     </div>
   </form>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ProductEntity } from '../models/product-entity';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-product',
@@ -10,18 +11,26 @@ import { ProductEntity } from '../models/product-entity';
 })
 export class EditProductComponent implements OnInit {
   productId: number;
-  product: ProductEntity = { name: '', description: '', price: 0, amount: 0 }; // Inicializa con un objeto vacío
+  product: ProductEntity = {
+    name: '',
+    description: '',
+    price: 0,
+    amount: 0,
+    image: null,
+  };
+  selectedImage: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
   ) {
-    this.productId = +this.route.snapshot.paramMap.get('id')!; // Obtiene el ID del producto de la URL
+    this.productId = +this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
-    this.getProduct(); // Llama a la función para obtener el producto
+    this.getProduct();
   }
 
   getProduct() {
@@ -29,38 +38,118 @@ export class EditProductComponent implements OnInit {
       .get<ProductEntity>(`http://localhost:8081/products/${this.productId}`)
       .subscribe({
         next: (data) => {
-          this.product = data; // Asigna los datos del producto
+          this.product = data;
+          if (this.product.image) {
+            // Obtener y mostrar la imagen actual
+            this.http
+              .get(`http://localhost:8081/products/${this.productId}/image`, {
+                responseType: 'blob',
+              })
+              .subscribe((blob) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  this.imagePreview = reader.result;
+                };
+                reader.readAsDataURL(blob);
+              });
+          }
         },
-        error: (error) => {
-          console.error('Error al obtener el producto:', error);
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al cargar el producto',
+          });
         },
       });
   }
 
+  onImageSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+    this.selectedImage = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
   updateProduct() {
-    // Verifica que price y amount no sean negativos
     if (this.product.price < 0 || this.product.amount < 0) {
-      alert('Los valores de price y amount no pueden ser negativos.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Valores inválidos',
+        text: 'Los valores de precio y cantidad no pueden ser negativos.',
+      });
       return;
     }
+
+    const updatedProduct = {
+      name: this.product.name,
+      description: this.product.description,
+      price: this.product.price,
+      amount: this.product.amount,
+    };
 
     this.http
       .put<ProductEntity>(
         `http://localhost:8081/products/updateProduct/${this.productId}`,
-        this.product
+        updatedProduct
       )
       .subscribe({
         next: () => {
-          alert('Producto actualizado exitosamente.');
-          this.router.navigate(['/products']); // Redirige a la lista de productos
+          if (this.selectedImage) {
+            this.uploadImage();
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Producto Actualizado',
+              text: 'Producto actualizado exitosamente.',
+            }).then(() => {
+              this.router.navigate(['/products']);
+            });
+          }
         },
-        error: (error) => {
-          console.error('Error al actualizar el producto:', error);
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al actualizar el producto.',
+          });
+        },
+      });
+  }
+
+  uploadImage() {
+    const formData = new FormData();
+    formData.append('imageFile', this.selectedImage!);
+
+    this.http
+      .put<ProductEntity>(
+        `http://localhost:8081/products/${this.productId}/image`,
+        formData
+      )
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Imagen Actualizada',
+            text: 'Producto e imagen actualizados exitosamente.',
+          }).then(() => {
+            this.router.navigate(['/products']);
+          });
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al actualizar la imagen.',
+          });
         },
       });
   }
 
   cancel() {
-    this.router.navigate(['/products']); // Navega de regreso a la lista de productos
+    this.router.navigate(['/products']);
   }
 }
