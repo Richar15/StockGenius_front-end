@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
 import { LoginComponent } from '../components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,12 @@ import { CreateProductComponent } from '../components/create-product/create-prod
 import { ProductImageUploadComponent } from '../components/product-image-upload/product-image-upload.component';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
 import { MenucomComponent } from '../components/menucom/menucom.component';
+<<<<<<< HEAD
 import { RouterModule } from '@angular/router';
+=======
+import { QuotationComponent } from '../components/quotation/quotation.component';
+import { ContactComponent } from '../components/contact/contact.component';
+>>>>>>> richard
 
 @NgModule({
   declarations: [
@@ -27,7 +32,9 @@ import { RouterModule } from '@angular/router';
     CreateProductComponent,
     ProductImageUploadComponent,
     EditProductComponent,
-    MenucomComponent
+    MenucomComponent,
+    QuotationComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +43,12 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     CommonModule,
+<<<<<<< HEAD
     RouterModule
+=======
+    BrowserModule,
+    ReactiveFormsModule
+>>>>>>> richard
   ],
   providers: [],
   bootstrap: [AppComponent],
