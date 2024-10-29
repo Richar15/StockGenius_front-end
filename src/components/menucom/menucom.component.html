@@ -1,61 +1,56 @@
-<!-- menucom.component.html -->
-<nav>
+<div class="layout">
+  <nav>
     <ul>
-      <li><a routerLink="/productos">Productos</a></li>
+      <li><a routerLink="/products">Productos</a></li>
       <li><a routerLink="/clientes">Clientes</a></li>
       <li><a routerLink="/ventas">Ventas</a></li>
-      <li><a routerLink="/cotizacion">Cotización</a></li>
-      <li><a routerLink="/contactos">Contactos</a></li>
+      <li><a routerLink="/quotations">Cotización</a></li>
+      <li><a routerLink="/contact">Contactos</a></li>
     </ul>
   </nav>
-  
-  <button 
-    (click)="toggleProductDetails()" 
-    class="add-purchase-button"
-    [class.initial]="!showProductDetails"
-    [class.moved]="showProductDetails">
-    Agregar compra
-  </button>
-  
-  <div *ngIf="showProductDetails" class="product-details">
-    <div class="product-form">
-      <div class="select-container">
-        <label style="font-size: 20px; margin-left: 40px;">Selecciona los Productos</label>
-        <select>
-          <option>Yuca</option>
-        </select>
-      </div>
-  
-      <div class="product-info">
-        <div class="info-row">
-          <label>Nombre:</label>
-          <span>{{ selectedProduct.name }}</span>
-        </div>
-        <div class="info-row">
-          <label>Descripción:</label>
-          <span>{{ selectedProduct.description }}</span>
-        </div>
-        <div class="info-row">
-          <label>Precio:</label>
-          <span>${{ selectedProduct.price }}</span>
-        </div>
-        <div class="info-row">
-          <label>Cantidad:</label>
-          <input type="number" [(ngModel)]="selectedProduct.quantity" min="1">
-        </div>
-      </div>
-  
-      <div class="image-placeholder">
-        IMG
-      </div>
-  
-      <div class="client-section">
-        <select class="client-select">
-          <option value="">client</option>
-        </select>
-        <button class="action-button">Agregar cliente</button>
-      </div>
-      
-      <button class="action-button" (click)="addToCart()">Agregar compra</button>
+
+  <div class="container">
+    <h2>Buscar Productos</h2>
+    <input type="text" placeholder="Nombre del producto" #productName>
+
+    <button (click)="searchProducts(productName.value)">Buscar</button>
+    <br>
+    <br>
+    <div *ngFor="let product of products" class="product-item">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p>Precio: {{ product.price }}</p>
+      <p>Disponibles: {{ product.amount }}</p>
+      <input type="number" placeholder="Cantidad" [(ngModel)]="product.amount" min="1">
+      <button (click)="selectProduct(product, product.amount)">Agregar</button>
     </div>
+    <br>
+    <br>
+    <h2>Buscar Cliente</h2>
+    <input type="text" placeholder="Nombre del cliente" #clientName>
+    <button (click)="searchClients(clientName.value)">Buscar</button>
+    <br>
+    <br>
+    <div *ngFor="let client of clients" class="client-item">
+      <h3>{{ client.name }} {{ client.lastName }}</h3>
+      <button (click)="selectClient(client)">Seleccionar</button>
+    </div>
+    <br>
+    <br>
+    <h2>Datos del Cliente:</h2>
+    <div *ngIf="selectedClient">
+      <p>Cliente: {{ selectedClient.name }} {{ selectedClient.lastName }}</p>
+      <p>Teléfono: {{ selectedClient.phone}}</p>
+      <p>Dirección: {{ selectedClient.direction}}</p>
+    </div>
+
+    <h2>Resumen de la Compra:</h2>
+    <ul>
+      <li *ngFor="let item of selectedProducts">
+        {{ item.product.name }} - Cantidad: {{ item.quantity }} - Total: {{ item.product.price * item.quantity }}
+      </li>
+    </ul>
+    <p>Total a pagar: {{ sale.priceTotal }}</p>
+    <button (click)="completeSale()">Completar Venta y Descargar PDF</button>
   </div>
+  <button id="back" type="button" (click)="back()">Volver al Inicio</button> 
