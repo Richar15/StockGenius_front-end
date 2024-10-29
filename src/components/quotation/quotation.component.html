@@ -1,0 +1,33 @@
+<div>
+  <button id="back" type="button" (click)="back()">Atrás</button> 
+
+  <h2>Cotizaciones</h2>
+  <div>
+    <input type="text" [(ngModel)]="searchName" placeholder="Buscar Producto" />
+    <button (click)="searchProducts()">Buscar</button>
+  </div>
+
+  <div *ngIf="searchResults.length > 0">
+    <h3>Resultados de la búsqueda</h3>
+    <ul>
+      <li *ngFor="let product of searchResults">
+        {{ product.name }} - Precio: {{ product.price }}
+        
+        <!-- Entrada para la cantidad -->
+        <input id="xd" type="number" [(ngModel)]="product.quantity" placeholder="Cantidad" min="1" style="width: 70px;" />
+        
+        <button (click)="addProductToQuotation(product)">Agregar a Cotización</button>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="selectedProducts.length > 0">
+    <h3>Productos Seleccionados para Cotización</h3>
+    <ul>
+      <li *ngFor="let product of selectedProducts">
+        {{ product.name }} - Cantidad: {{ product.amount }} - Precio por unidad: {{ product.price }}
+      </li>
+    </ul>
+    <button (click)="generateQuotation()">Generar Cotización PDF</button>
+  </div>
+</div>

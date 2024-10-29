@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<button id="back" type="button" (click)="back()">Atrás</button> 
+
+<div class="developer-info-container">
+    <h1>Nuestro Equipo de Desarrollo</h1>
+    <div class="developer-grid">
+      <div *ngFor="let developer of developers" class="developer-card">
+        <h2>{{ developer.name }}</h2>
+        <p class="role">{{ developer.role }}</p>
+        <div class="social-links">
+          <a [href]="developer.socialMedia.github" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+          </a>
+          <a [href]="developer.socialMedia.linkedin" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
