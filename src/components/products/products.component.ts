@@ -54,9 +54,9 @@ export class ProductsComponent implements OnInit {
           },
           () => {
             Swal.fire(
-              'Error',
-              `Error al cargar la imagen para el producto ${product.name}`,
-              'error'
+              'Advertencia',
+              `Cargar la imagen para el producto ${product.name}`,
+              'warning'
             );
           }
         );
