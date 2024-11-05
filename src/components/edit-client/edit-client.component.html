@@ -1,0 +1,59 @@
+<div class="capsula-marron">
+    <div class="capsula-tablero">
+    <h2>Editar Cliente</h2>
+
+    <form (ngSubmit)="updateClient()">
+        <div>
+            <label for="name">Nombre:</label>
+            <input
+              type="text"
+              id="name"
+              [(ngModel)]="client.name"
+              name="name"
+              required
+            />
+          </div>
+    
+          <div>
+            <label for="lastName">Apellido:</label>
+            <input
+              type="text"
+              id="lastName"
+              [(ngModel)]="client.lastName"
+              name="lastName"
+              required
+            />
+          </div>
+    
+          <div>
+            <label for="phone">Teléfono:</label>
+            <input
+              type="text"
+              id="phone"
+              [(ngModel)]="client.phone"
+              name="phone"
+              required
+            />
+          </div>
+    
+          <div>
+            <label for="direction">Dirección:</label>
+            <input
+              type="text"
+              id="direction"
+              [(ngModel)]="client.direction"
+              name="phone"
+              required
+            />
+          </div>
+    
+          <div class="button-group">
+            <button type="submit" class="btn-save">Guardar</button>
+            <button type="button" class="btn-cancel" (click)="Oncancel()">
+              Cancelar
+            </button>
+          </div>
+        </form>
+
+  </div>
+</div>

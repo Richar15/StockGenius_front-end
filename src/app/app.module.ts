@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,13 @@ import { ProductsComponent } from '../components/products/products.component';
 import { CreateProductComponent } from '../components/create-product/create-product.component';
 import { ProductImageUploadComponent } from '../components/product-image-upload/product-image-upload.component';
 import { EditProductComponent } from '../components/edit-product/edit-product.component';
+import { ClientListComponent } from '../components/client-list/client-list.component';
+import { CreateClientComponent } from '../components/create-client/create-client.component';
+import { EditClientComponent } from '../components/edit-client/edit-client.component';
+import { SalesReportComponent } from '../components/sales-report/sales-report.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -29,6 +37,14 @@ import { EditProductComponent } from '../components/edit-product/edit-product.co
     CreateProductComponent,
     ProductImageUploadComponent,
     EditProductComponent,
+    ClientListComponent,
+    CreateClientComponent,
+    EditClientComponent,
+    SalesReportComponent,
+
+
+  
+    
   ],
   imports: [
     BrowserModule,
