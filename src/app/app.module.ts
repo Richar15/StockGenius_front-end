@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
@@ -17,6 +19,10 @@ import { MenucomComponent } from '../components/menucom/menucom.component';
 import { QuotationComponent } from '../components/quotation/quotation.component';
 import { ContactComponent } from '../components/contact/contact.component';
 import { RouterModule } from '@angular/router';
+import { CreateClientComponent } from '../components/create-client/create-client.component';
+import { EditClientComponent } from '../components/edit-client/edit-client.component';
+import { ClientListComponent } from '../components/client-list/client-list.component';
+
 
 
 @NgModule({
@@ -31,7 +37,11 @@ import { RouterModule } from '@angular/router';
     EditProductComponent,
     MenucomComponent,
     QuotationComponent,
-    ContactComponent
+    ContactComponent,
+    ClientListComponent,
+    CreateClientComponent,
+    EditClientComponent
+
   ],
   imports: [
     BrowserModule,

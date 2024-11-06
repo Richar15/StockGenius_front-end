@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Lista de Clientes</h2>
+
+    <div class="actions">
+    <div class="left-buttons">
+    <button (click)="navigateToMenu()" class="blue-button">
+      Volver
+    </button>
+      <button (click)="navigateToCreateClient()" class="blue-button">
+      Crear Cliente
+    </button>
+    </div>
+  
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar cliente"
+        />
+        <button (click)="searchClients()" class="search-button">
+          <img src="/assets/images/lupa.png" alt="Buscar" />
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="clients.length === 0" class="alert info">
+      No hay datos existentes, agregar  un cliente.
+
+    </div>
+  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients">
+            <td>{{ client.name }}</td>
+            <td>{{ client.lastName }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.direction }}</td>
+            <td class="actions-column">
+              <button class="edit-button" (click)="navigateToEditClient(client.id)">
+                Editar
+              </button>
+              <button class="delete-button" (click)="confirmDeleteClient(client.name)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
