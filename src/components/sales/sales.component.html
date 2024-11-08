@@ -1,0 +1,138 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Reporte de Ventas</h2>
+      <div class="text-muted">
+        Fecha actual: {{ currentDate | date:'longDate':'es' }}
+      </div>
+    </div>
+  
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="left-buttons">
+            <button (click)="navigateToMenu()" class="blue-button">
+              Volver
+            </button>
+        </div>
+        <div class="btn-group w-100">
+          <button 
+            (click)="getSalesByDay(currentDate)"
+            class="btn btn-lg"
+            [class.btn-primary]="selectedPeriod === 'day'"
+            [class.btn-outline-primary]="selectedPeriod !== 'day'">
+            <i class="bi bi-calendar-day"></i>
+            Ventas del Día
+          </button>
+          <button 
+            (click)="getSalesByWeek(currentDate)"
+            class="btn btn-lg"
+            [class.btn-primary]="selectedPeriod === 'week'"
+            [class.btn-outline-primary]="selectedPeriod !== 'week'">
+            <i class="bi bi-calendar-week"></i>
+            Ventas de la Semana
+          </button>
+          <button 
+            (click)="getSalesByMonth(currentDate)"
+            class="btn btn-lg"
+            [class.btn-primary]="selectedPeriod === 'month'"
+            [class.btn-outline-primary]="selectedPeriod !== 'month'">
+            <i class="bi bi-calendar-month"></i>
+            Ventas del Mes
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="message" class="alert alert-info">
+      {{ message }}
+    </div>
+  
+    <div *ngIf="loading" class="text-center p-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  
+    <div *ngIf="!loading && sales.length > 0" class="card">
+      <div class="card-body">
+        <h4 class="card-title d-flex justify-content-between align-items-center">
+          <span>Total de Ventas</span>
+          <span class="badge bg-success fs-5">{{ totalAmount | currency:'COP' }}</span>
+        </h4>
+        
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sale of sales">
+                <td>{{ sale.id }}</td>
+                <td>{{ sale.date | date:'shortDate' }}</td>
+                <td>{{ sale.clientName }}</td>
+                <td>{{ sale.productName }}</td>
+                <td>{{ sale.priceTotal | currency:'COP' }}</td>
+   
+              </tr>
+              <tr *ngFor="let sale of sales" [class.d-none]="expandedSaleId !== sale.id">
+                <td colspan="6">
+                  <div class="card bg-light">
+                    <div class="card-body">
+                      <div class="row">
+                        <!-- Información del Cliente -->
+                        <div class="col-md-6">
+                          <h6 class="card-subtitle mb-3">
+                            <i class="bi bi-person-circle"></i> Información del Cliente
+                          </h6>
+                          <ul class="list-unstyled">
+                            <li><strong>Nombre:</strong> {{ sale.client.name }} {{ sale.client.lastName }}</li>
+                            <li><strong>Teléfono:</strong> {{ sale.client.phone }}</li>
+                            <li><strong>Dirección:</strong> {{ sale.client.direction }}</li>
+                          </ul>
+                        </div>
+                        
+                        <!-- Productos -->
+                        <div class="col-md-6">
+                          <h6 class="card-subtitle mb-3">
+                            <i class="bi bi-box-seam"></i> Productos
+                          </h6>
+                          <div class="row g-3">
+                            <div *ngFor="let product of sale.products" class="col-md-6">
+                              <div class="card h-100 shadow-sm">
+                                <img [src]="getImageUrl(product.image)" 
+                                     class="card-img-top" 
+                                     [alt]="product.name"
+                                     style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{ product.name }}</h5>
+                                  <p class="card-text text-muted">{{ product.description }}</p>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary">{{ product.price | currency:'COP' }}</span>
+                                    <span class="badge bg-secondary">Cantidad: {{ product.amount }}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!loading && sales.length === 0" class="alert alert-warning">
+      <i class="bi bi-exclamation-triangle"></i>
+      No se encontraron ventas para el período seleccionado.
+    </div>
+  </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ClientEntity } from '../models/client.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-client',
@@ -15,6 +16,7 @@ export class EditClientComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
     this.clientId = +this.route.snapshot.paramMap.get('id')!;
   }
+
   ngOnInit(): void {
     this.getClient(); 
   }
@@ -28,6 +30,12 @@ export class EditClientComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener el cliente:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo obtener la información del cliente.',
+            confirmButtonColor: '#c82333',
+          });
         },
       });
   }
@@ -40,11 +48,23 @@ export class EditClientComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          alert('Cliente actualizado exitosamente.');
-          this.router.navigate(['/clients']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualización exitosa',
+            text: 'El cliente ha sido actualizado exitosamente.',
+            confirmButtonColor: '#28a745',
+          }).then(() => {
+            this.router.navigate(['/clients']);
+          });
         },
         error: (error) => {
           console.error('Error al actualizar el cliente:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo actualizar el cliente.',
+            confirmButtonColor: '#c82333',
+          });
         },
       });
   }

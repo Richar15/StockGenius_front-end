@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-client-list',
@@ -24,6 +25,12 @@ export class ClientListComponent implements OnInit {
       },
       () => {
         console.error('No se pudieron cargar los clientes');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar los clientes.',
+          confirmButtonColor: '#c82333',
+        });
       }
     );
   }
@@ -41,16 +48,37 @@ export class ClientListComponent implements OnInit {
         },
         () => {
           console.error('No se pudo realizar la búsqueda');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo realizar la búsqueda.',
+            confirmButtonColor: '#c82333',
+          });
         }
       );
   }
 
   confirmDeleteClient(name: string) {
-    if (
-      confirm(`¿Estás seguro de que deseas eliminar el cliente "${name}"?`)
-    ) {
-      this.deleteClient(name);
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Deseas eliminar al cliente "${name}"? Esta acción no se puede deshacer.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteClient(name);
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado',
+          text: `El cliente "${name}" ha sido eliminado.`,
+          confirmButtonColor: '#28a745',
+        });
+      }
+    });
   }
 
   deleteClient(name: string) {
@@ -61,7 +89,13 @@ export class ClientListComponent implements OnInit {
           this.fetchClients(); 
         },
         () => {
-          console.error('Ocurrió un error al intentar eliminar el .');
+          console.error('Ocurrió un error al intentar eliminar el cliente.');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al intentar eliminar el cliente.',
+            confirmButtonColor: '#c82333',
+          });
         }
       );
   }
@@ -77,6 +111,4 @@ export class ClientListComponent implements OnInit {
   navigateToEditClient(clientId: number) {
     this.router.navigate(['/edit-client', clientId]);
   }
-
-
 }

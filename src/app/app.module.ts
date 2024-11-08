@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
@@ -22,8 +24,10 @@ import { RouterModule } from '@angular/router';
 import { CreateClientComponent } from '../components/create-client/create-client.component';
 import { EditClientComponent } from '../components/edit-client/edit-client.component';
 import { ClientListComponent } from '../components/client-list/client-list.component';
+import { SalesComponent } from '../components/sales/sales.component';
 
 
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { ClientListComponent } from '../components/client-list/client-list.compo
     ContactComponent,
     ClientListComponent,
     CreateClientComponent,
-    EditClientComponent
+    EditClientComponent,
+    SalesComponent,
+
 
   ],
   imports: [
@@ -55,7 +61,9 @@ import { ClientListComponent } from '../components/client-list/client-list.compo
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

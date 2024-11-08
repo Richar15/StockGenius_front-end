@@ -14,6 +14,7 @@ import { EditClientComponent } from '../components/edit-client/edit-client.compo
 import { ContactComponent } from '../components/contact/contact.component';
 import { QuotationComponent } from '../components/quotation/quotation.component';
 import { MenucomComponent } from '../components/menucom/menucom.component';
+import { SalesComponent } from '../components/sales/sales.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
@@ -30,7 +31,7 @@ const routes: Routes = [
   { path: 'clients', component: ClientListComponent },
   { path: 'create-client', component: CreateClientComponent },
   { path: 'edit-client/:id', component: EditClientComponent },
-  
+  { path: 'sales', component: SalesComponent }
  
 
 ];

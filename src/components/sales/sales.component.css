@@ -1,0 +1,180 @@
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .text-muted {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #7f8c8d;
+  }
+  
+  /* Tarjeta de reporte */
+  .card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 50px;
+  }
+
+  .left-buttons{
+    float: left;
+    margin: 10px;
+    font-size: 0.9rem;  
+  }
+
+  .blue-button{
+    background-color: #b8c9de;
+    border-color: #6e7c9d;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .blue-button:hover{
+    background-color: #495057; 
+    transform: scale(1.05);
+  }
+  
+  /* Botones de selección de período */
+  .btn-group .btn {
+    font-size: 1rem;
+    padding: 12px 16px;
+    font-weight: 500;
+  }
+  
+  .btn-primary {
+    background-color: #b8c9de;
+    border-color: #6e7c9d;
+    color: #fff;
+  }
+  
+  .btn-outline-primary {
+    border-color: #b8c9de;
+    color: #6e7c9d;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #6e7c9d;
+    color: #fff;
+  }
+  
+  /* Mensaje informativo */
+  .alert-info {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #faebcc;
+    color: #0a2c12;
+  }
+  
+  .alert-warning {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #6e7c9d;
+  }
+  
+  /* Tabla de ventas */
+  .table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .table-light th {
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+
+  .table th, .table td {
+    text-align: left;  
+    padding: 8px;      
+    vertical-align: middle;
+  }
+  
+  /* Estilo del total de ventas */
+  .badge {
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+  }
+  
+  .badge.bg-success {
+    background-color: #faebcc;
+  }
+  
+  .badge.bg-primary {
+    background-color: #faebcc;
+  }
+  
+  .badge.bg-secondary {
+    background-color: #95a5a6;
+  }
+  
+  /* Botones de acciones */
+  .btn-sm {
+    font-size: 0.9rem;
+  }
+  
+  .btn-info {
+    background-color: #b8c9de;
+    border-color: #6e7c9d;
+    color: #fff;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+  }
+  
+  /* Tarjetas de detalles de cliente y productos */
+  .card.bg-light {
+    background-color: #f8f9fa;
+  }
+  
+  .card-subtitle {
+    font-size: 1rem;
+    color: #7f8c8d;
+    font-weight: bold;
+  }
+  
+  .card-img-top {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 9px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Estilo de spinner de carga */
+  .spinner-border {
+    width: 5rem;
+    height: 3rem;
+    border-width: 0.3rem;
+  }

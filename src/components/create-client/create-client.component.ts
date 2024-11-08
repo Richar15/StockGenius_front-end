@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-client',
@@ -15,40 +16,46 @@ export class CreateClientComponent {
     direction: ''
   };
 
-  errorMessage: string | null = null;
-  successMessage: string | null = null;
-
   constructor(private http: HttpClient, private router: Router) { }
 
   onSubmit() {
-
-    if (
-      !this.client.name ||
-      !this.client.lastName ||
-      !this.client.phone ||
-      !this.client.direction
-    ) {
-      this.errorMessage = 'Por favor, llene todos los campos';
-      this.successMessage = null;
+    // Validación de campos vacíos
+    if (!this.client.name || !this.client.lastName || !this.client.phone || !this.client.direction) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos incompletos',
+        text: 'Por favor, llene todos los campos',
+        confirmButtonColor: '#ffc107',
+      });
       return;
     }
 
+    // Solicitud HTTP para crear el cliente
     this.http
       .post('http://localhost:8081/clients/createClient', this.client)
-      .subscribe(
-        (response: any) => {
+      .subscribe({
+        next: (response: any) => {
           console.log('Cliente creado', response);
-          this.successMessage = 'Cliente creado exitosamente';
-          this.errorMessage = null;
-
-          this.resetForm();
+          Swal.fire({
+            icon: 'success',
+            title: 'Cliente creado',
+            text: 'Cliente creado exitosamente',
+            confirmButtonColor: '#28a745',
+          }).then(() => {
+            this.resetForm();
+            this.router.navigate(['/clients']);
+          });
         },
-        (error) => {
-          console.error('Error al crear el producto', error);
-          this.errorMessage = 'Hubo un error al crear el cliente';
-          this.successMessage = null;
+        error: (error) => {
+          console.error('Error al crear el cliente:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al crear el cliente. Inténtelo nuevamente.',
+            confirmButtonColor: '#c82333',
+          });
         }
-      );
+      });
   }
 
   resetForm() {
@@ -57,7 +64,7 @@ export class CreateClientComponent {
       lastName: '',
       phone: '',
       direction: ''
-    }
+    };
   }
 
   onCancel() {
