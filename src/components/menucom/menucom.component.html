@@ -1,17 +1,17 @@
+<h1>Crear Venta</h1>
 <div class="layout">
   <nav>
     <ul>
       <li><a routerLink="/products">Productos</a></li>
       <li><a routerLink="/clients">Clientes</a></li>
       <li><a routerLink="/sales">Ventas</a></li>
-      <li><a routerLink="/quotations">Cotización</a></li>
-      <li><a routerLink="/contact">Contactos</a></li>
+      <li><a routerLink="/quotations">Cotizaciones</a></li>
+      <li><a routerLink="/contact">Soporte Técnico y Contactos</a></li>
     </ul>
   </nav>
-
   <div class="container">
     <h2>Buscar Productos</h2>
-    <input type="text" placeholder="Nombre del producto" #productName>
+    <input type="text" placeholder="Nombre del Producto" #productName>
 
     <button (click)="searchProducts(productName.value)">Buscar</button>
     <br>
@@ -19,7 +19,7 @@
     <div *ngFor="let product of products" class="product-item">
       <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
-      <p>Precio: {{ product.price }}</p>
+      <p>Precio: $ {{ product.price }} COP</p>
       <p>Disponibles: {{ product.amount }}</p>
       <input type="number" placeholder="Cantidad" [(ngModel)]="product.amount" min="1">
       <button (click)="selectProduct(product, product.amount)">Agregar</button>
@@ -27,7 +27,7 @@
     <br>
     <br>
     <h2>Buscar Cliente</h2>
-    <input type="text" placeholder="Nombre del cliente" #clientName>
+    <input type="text" placeholder="Nombre del Cliente" #clientName>
     <button (click)="searchClients(clientName.value)">Buscar</button>
     <br>
     <br>
@@ -47,10 +47,10 @@
     <h2>Resumen de la Compra:</h2>
     <ul>
       <li *ngFor="let item of selectedProducts">
-        {{ item.product.name }} - Cantidad: {{ item.quantity }} - Total: {{ item.product.price * item.quantity }}
+        {{ item.product.name }} - Cantidad: {{ item.quantity }} - Total: $ {{ item.product.price * item.quantity }} COP
       </li>
     </ul>
-    <p>Total a pagar: {{ sale.priceTotal }}</p>
+    <p>Total a Pagar: <span>$ </span>{{ sale.priceTotal }} <span>COP</span></p>
     <button (click)="completeSale()">Completar Venta y Descargar PDF</button>
   </div>
-  <button id="back" type="button" (click)="back()">Volver al Inicio</button> 
+  <button id="back" type="button" (click)="back()">Atras</button> 

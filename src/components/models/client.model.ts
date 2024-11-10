@@ -4,5 +4,6 @@ export interface ClientEntity {
     lastName: string;
     phone:  string;
     direction:  string;
+    gmail:  string;
 
   }

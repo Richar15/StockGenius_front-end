@@ -1,19 +1,59 @@
 <div class="container">
-    <h1 class="title">Bienvenido a su Sistema de Inventario StockGenius</h1>
-    <div class="grid">
-      <mat-card *ngFor="let seccion of secciones" class="card">
-        <mat-card-header>
-          <mat-icon mat-card-avatar>{{seccion.icono}}</mat-icon>
-          <mat-card-title>{{seccion.titulo}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{seccion.descripcion}}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="navegar(seccion.ruta)">
-            Ir a {{seccion.titulo}}
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+  <header class="header">
+    <h1 class="title">Bienvenido a StockGenius</h1>
+    <p class="subtitle">Tu Sistema Inteligente de Gestión de Inventario</p>
+  </header>
+  
+  <div class="grid">
+    <mat-card *ngFor="let seccion of secciones" class="card" [@fadeInOut]>
+      <mat-card-header [style.background-color]="seccion.color">
+        <mat-icon mat-card-avatar>{{seccion.icono}}</mat-icon>
+        <mat-card-title>{{seccion.titulo}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{seccion.descripcion}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button [style.background-color]="seccion.color" (click)="navegar(seccion.ruta)">
+          <mat-icon>arrow_forward</mat-icon>
+          Ir a {{seccion.titulo}}
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
+
+  <section class="presentation">
+    <h2>Acerca de StockGenius</h2>
+    <div class="presentation-content">
+      <div class="presentation-text">
+        <p>
+          StockGenius es tu solución integral para la gestión de inventario, diseñada para impulsar la eficiencia y
+          el crecimiento de tu negocio. Nuestro sistema combina tecnología avanzada con una interfaz intuitiva para
+          ofrecerte un control total sobre tus productos, ventas y clientes.
+        </p>
+        <p>Con StockGenius, podrás:</p>
+        <ul>
+          <li *ngFor="let caracteristica of caracteristicas">{{ caracteristica }}</li>
+        </ul>
+      </div>
+      <div class="presentation-features">
+        <h3>¿Por qué elegir StockGenius?</h3>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon mat-list-icon>inventory_2</mat-icon>
+            <div mat-line><strong>Gestión integral:</strong></div>
+            <div mat-line>Desde el seguimiento de productos hasta la generación de informes, todo en una sola plataforma.</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>headset_mic</mat-icon>
+            <div mat-line><strong>Soporte premium:</strong></div>
+            <div mat-line>Nuestro equipo de expertos está siempre disponible para ayudarte.</div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <button mat-raised-button color="accent" (click)="navegar('/start')" class="start-button">
+   Volver al Inicio
+    </button>
+  </section>
+</div>

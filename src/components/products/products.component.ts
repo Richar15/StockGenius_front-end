@@ -163,7 +163,7 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/create-product']);
   }
 
-  navigateToMenu() {
+  navigateToinicio() {
     this.router.navigate(['/menu']);
   }
 

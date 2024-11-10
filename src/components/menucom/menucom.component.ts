@@ -110,6 +110,6 @@ export class MenucomComponent implements OnInit  {
     );
   }
   back(): void {
-    this.router.navigate(['/start']);
+    this.router.navigate(['/inicio']);
   }
 }

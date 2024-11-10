@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -6,51 +7,72 @@ interface Seccion {
   descripcion: string;
   icono: string;
   ruta: string;
+  color: string;
+  
 }
 @Component({
   selector: 'app-vista-inicio',
   templateUrl: './vista-inicio.component.html',
-  styleUrl: './vista-inicio.component.css'
+  styleUrl: './vista-inicio.component.css',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class VistaInicioComponent {
   secciones: Seccion[] = [
     {
-      titulo: 'Productos',
-      descripcion: 'Gestiona tu catálogo de productos',
-      icono: 'inventory_2',
-      ruta: '/products'
-    },
-  
-    {
       titulo: 'Vender',
-      descripcion: 'Crea y registra tus ventas',
+      descripcion: 'Crea y registra tus ventas de manera rápida y eficiente',
       icono: 'shopping_cart',
-      ruta: '/menu'
+      ruta: '/menu',
+      color: '#4CAF50'
+    },
+    {
+      titulo: 'Productos',
+      descripcion: 'Gestiona tu catálogo de productos con facilidad',
+      icono: 'inventory_2',
+      ruta: '/products',
+      color: '#2196F3'
     },
     {
       titulo: 'Reporte de Ventas',
-      descripcion: 'Informes y estadísticas de ventas',
+      descripcion: 'Analiza tus ventas con informes detallados',
       icono: 'bar_chart',
-      ruta: '/sales'
+      ruta: '/sales',
+      color: '#FF9800'
     },
     {
       titulo: 'Clientes',
-      descripcion: 'Gestiona los clientes de tu negocio',
+      descripcion: 'Administra tu base de clientes y mejora tus relaciones comerciales',
       icono: 'people',
-      ruta: '/clients'
+      ruta: '/clients',
+      color: '#E91E63'
     },
     {
       titulo: 'Cotizaciones',
-      descripcion: 'Crea cotizaciones para tus clientes',
+      descripcion: 'Crea cotizaciones para tus clientes potenciales',
       icono: 'request_quote',
-      ruta: '/quotations'
+      ruta: '/quotations',
+      color: '#9C27B0'
     },
     {
-      titulo: 'Contactos de desarrollador',
-      descripcion: 'Contacta a nuestro equipo de desarrollo para soporte técnico',
-      icono: 'people',
-      ruta: '/contact'
+      titulo: 'Soporte Técnico',
+      descripcion: 'Obtén ayuda de nuestro equipo de expertos en cualquier momento',
+      icono: 'support_agent',
+      ruta: '/contact',
+      color: '#607D8B'
     }
+  ];
+
+  caracteristicas: string[] = [
+    'Optimiza tu gestión de inventario en tiempo real',
+    'Mejora la satisfacción del cliente con un servicio más rápido y eficiente',
+    'Ahorra tiempo y reduce errores en tus procesos diarios'
   ];
 
   constructor(private router: Router) {}

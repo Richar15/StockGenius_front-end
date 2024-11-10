@@ -58,10 +58,10 @@ export class ClientListComponent implements OnInit {
       );
   }
 
-  confirmDeleteClient(name: string) {
+  confirmDeleteClient(id: number) {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: `¿Deseas eliminar al cliente "${name}"? Esta acción no se puede deshacer.`,
+      text: `¿Deseas eliminar al cliente con ID "${id}"? Esta acción no se puede deshacer.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -70,36 +70,43 @@ export class ClientListComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteClient(name);
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado',
-          text: `El cliente "${name}" ha sido eliminado.`,
-          confirmButtonColor: '#28a745',
-        });
+        this.deleteClient(id);
       }
     });
   }
 
-  deleteClient(name: string) {
+  deleteClient(id: number) {
     this.http
-      .delete(`http://localhost:8081/clients/deleteClient/${name}`)
+      .delete(`http://localhost:8081/clients/deleteClient/${id}`, { responseType: 'text' })
       .subscribe(
-        () => {
-          this.fetchClients(); 
+        (response) => {
+        
+          this.clients = this.clients.filter(client => client.id !== id);
+  
+ 
+          Swal.fire({
+            icon: 'success',
+            title: 'Cliente eliminado',
+            text: response, 
+            confirmButtonColor: '#28a745',
+          });
         },
-        () => {
-          console.error('Ocurrió un error al intentar eliminar el cliente.');
+        (error) => {
+          console.error('Ocurrió un error al intentar eliminar el cliente:', error);
+          
+          
+          const errorMessage = error.error || 'Ocurrió un error al intentar eliminar el cliente.';
+          
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Ocurrió un error al intentar eliminar el cliente.',
+            text: errorMessage,
             confirmButtonColor: '#c82333',
           });
         }
       );
   }
-
+  
   navigateToCreateClient() {
     this.router.navigate(['/create-client']);
   }

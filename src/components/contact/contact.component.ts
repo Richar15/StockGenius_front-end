@@ -21,8 +21,8 @@ export class ContactComponent {
       name: 'Antonio Daza Franco',
       role: 'Frontend Developer',
       socialMedia: {
-        github: 'https://github.com/anamartinez',
-        linkedin: 'https://linkedin.com/in/anamartinez',
+        github: 'https://github.com/Antonio0686',
+        linkedin: 'https://www.linkedin.com/in/antonio-daza-554a641a3?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
         
       }
     },
@@ -39,8 +39,8 @@ export class ContactComponent {
       name: 'Hendepson Gonzáles Jiménez',
       role: 'Frontend Developer',
       socialMedia: {
-        github: 'https://github.com/elenagomez',
-        linkedin: 'https://linkedin.com/in/elenagomez',
+        github: 'https://github.com/Henderson0126',
+        linkedin: 'https://www.linkedin.com/in/henderson-gonz%C3%A1lez-426b15327?trk=contact-info',
         
       }
     },
@@ -48,8 +48,8 @@ export class ContactComponent {
       name: 'Maykol Manuel Galván Hoyos',
       role: 'Frontend Developer',
       socialMedia: {
-        github: 'https://github.com/davidlopez',
-        linkedin: 'https://linkedin.com/in/davidlopez',
+        github: 'https://github.com/ingeniero44',
+        linkedin: 'https://www.linkedin.com/in/maykol-galvan-hoyos-85558b209/',
         
       }
     },

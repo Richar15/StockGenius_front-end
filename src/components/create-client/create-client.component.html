@@ -27,14 +27,20 @@
 
       <div>
         <label for="phone">Teléfono:</label>
-        <input
-          type="text"
-          id="phone"
-          [(ngModel)]="client.phone"
-          name="phone"
-          required
-        />
+        <div class="phone-input-container">
+          <input
+            type="text"
+            id="phone"
+            [(ngModel)]="client.phone"
+            name="phone"
+            required
+            placeholder="Ej: 3172719261"
+            (input)="formatPhone()"
+          />
+          
+        </div>
       </div>
+      
 
       <div>
         <label for="direction">Dirección:</label>
@@ -43,10 +49,21 @@
           id="direction"
           [(ngModel)]="client.direction"
           name="phone"
+          placeholder="Ej: Monteria, Cordoba"
           required
         />
       </div>
-
+      <div>
+        <label for="gmail">Gmail:</label>
+        <input
+          type="email"
+          id="gmail"
+          [(ngModel)]="client.gmail"
+          name="phone"
+          placeholder="Ej: dev@gmail.com "
+          required
+        />
+      </div>
       <div class="button-group">
         <button type="submit" class="btn-save">Guardar</button>
         <button type="button" class="btn-cancel" (click)="onCancel()">

@@ -1,10 +1,10 @@
 <div class="container">
-    <h2>Lista de Clientes</h2>
+    <h2>Clientes</h2>
 
     <div class="actions">
     <div class="left-buttons">
     <button (click)="navigateToMenu()" class="blue-button">
-      Volver
+      Atras
     </button>
       <button (click)="navigateToCreateClient()" class="blue-button">
       Crear Cliente
@@ -15,7 +15,7 @@
       <input 
         type="text" 
         [(ngModel)]="searchTerm"
-        placeholder="Buscar cliente"
+        placeholder="Buscar Cliente"
         />
         <button (click)="searchClients()" class="search-button">
           <img src="/assets/images/lupa.png" alt="Buscar" />
@@ -36,6 +36,7 @@
             <th>Apellido</th>
             <th>Teléfono</th>
             <th>Dirección</th>
+            <th>Gmail</th>
             <th>Acción</th>
           </tr>
         </thead>
@@ -45,11 +46,12 @@
             <td>{{ client.lastName }}</td>
             <td>{{ client.phone }}</td>
             <td>{{ client.direction }}</td>
+            <td>{{ client.gmail }}</td>
             <td class="actions-column">
               <button class="edit-button" (click)="navigateToEditClient(client.id)">
                 Editar
               </button>
-              <button class="delete-button" (click)="confirmDeleteClient(client.name)">
+              <button class="delete-button" (click)="confirmDeleteClient(client.id)">
                 Eliminar
               </button>
             </td>
