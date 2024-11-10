@@ -10,6 +10,7 @@ import { StartComponent } from '../components/start/start.component';
 import { MenucomComponent } from '../components/menucom/menucom.component';
 import { QuotationComponent } from '../components/quotation/quotation.component';
 import { ContactComponent } from '../components/contact/contact.component';
+import { VistaInicioComponent } from '../components/vista-inicio/vista-inicio.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'start', component: StartComponent },
   { path: 'menu', component: MenucomComponent },
   {path: 'quotations', component: QuotationComponent},
-  {path: 'contact', component: ContactComponent} 
+  {path: 'contact', component: ContactComponent},
+  {path: 'inicio', component: VistaInicioComponent}
 ];
 
 @NgModule({

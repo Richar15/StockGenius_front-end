@@ -1,0 +1,19 @@
+<div class="container">
+    <h1 class="title">Bienvenido al Sistema de Inventario</h1>
+    <div class="grid">
+      <mat-card *ngFor="let seccion of secciones" class="card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{seccion.icono}}</mat-icon>
+          <mat-card-title>{{seccion.titulo}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{seccion.descripcion}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="navegar(seccion.ruta)">
+            Ir a {{seccion.titulo}}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>

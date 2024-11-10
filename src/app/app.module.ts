@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
@@ -17,7 +16,12 @@ import { EditProductComponent } from '../components/edit-product/edit-product.co
 import { MenucomComponent } from '../components/menucom/menucom.component';
 import { QuotationComponent } from '../components/quotation/quotation.component';
 import { ContactComponent } from '../components/contact/contact.component';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { VistaInicioComponent } from '../components/vista-inicio/vista-inicio.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +34,8 @@ import { ContactComponent } from '../components/contact/contact.component';
     EditProductComponent,
     MenucomComponent,
     QuotationComponent,
-    ContactComponent
+    ContactComponent,
+    VistaInicioComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +45,16 @@ import { ContactComponent } from '../components/contact/contact.component';
     SweetAlert2Module.forRoot(),
     CommonModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    BrowserAnimationsModule
+
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
