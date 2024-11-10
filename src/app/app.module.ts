@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from '../components/start/start.component';
@@ -25,10 +22,12 @@ import { CreateClientComponent } from '../components/create-client/create-client
 import { EditClientComponent } from '../components/edit-client/edit-client.component';
 import { ClientListComponent } from '../components/client-list/client-list.component';
 import { SalesComponent } from '../components/sales/sales.component';
-
-
-registerLocaleData(localeEs);
-
+import { VistaInicioComponent } from '../components/vista-inicio/vista-inicio.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +45,7 @@ registerLocaleData(localeEs);
     CreateClientComponent,
     EditClientComponent,
     SalesComponent,
-
+    VistaInicioComponent
 
   ],
   imports: [
@@ -58,12 +57,18 @@ registerLocaleData(localeEs);
     CommonModule,
     RouterModule,
     BrowserModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'es' }
+    { provide: LOCALE_ID, useValue: 'es' },
+    provideAnimationsAsync()
+
   ],
+ 
   bootstrap: [AppComponent],
 })
 export class AppModule { }
