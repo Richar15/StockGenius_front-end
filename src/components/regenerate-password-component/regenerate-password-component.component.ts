@@ -10,19 +10,48 @@ import { Router } from '@angular/router';
   styleUrl: './regenerate-password-component.component.css'
 })
 export class RegeneratePasswordComponentComponent {
-  newPassword: string | null = null; 
-  passwordCopied: boolean = false;   
+  newPassword: string | null = null;
+  passwordCopied: boolean = false;
+  lastRegenerationTime: number | null = null;
 
   constructor(
     private resetPasswordService: ResetPasswordServiceService,
     private router: Router
-  ) {}
+  ) {
+   
+    this.lastRegenerationTime = Number(localStorage.getItem('lastRegenerationTime'));
+
+    
+    if (this.lastRegenerationTime && Date.now() - this.lastRegenerationTime < 3600000) {
+  Swal.fire({
+        icon: 'warning',
+        title: 'Advertencia',
+        text: 'Debe esperar 1 hora para regenerar la contraseña nuevamente.'
+      }).then(() => {
+        this.router.navigate(['/start']);
+      });
+    }
+  }
 
   regeneratePassword() {
+   
+    if (this.lastRegenerationTime && Date.now() - this.lastRegenerationTime < 3600000) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe esperar 1 hora para regenerar la contraseña.'
+      });
+      return;
+    }
+
+    
     this.resetPasswordService.regeneratePassword().subscribe({
       next: (response: string) => {
-        this.newPassword = response; 
-        this.passwordCopied = false; 
+        this.newPassword = response;
+        this.passwordCopied = false;
+       
+        localStorage.setItem('lastRegenerationTime', Date.now().toString());
+        this.lastRegenerationTime = Date.now();
       },
       error: (err) => {
         Swal.fire({
