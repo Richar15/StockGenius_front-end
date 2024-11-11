@@ -29,6 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatListModule } from '@angular/material/list';
+import { NotificationComponent } from '../components/notification/notification.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +51,8 @@ import { MatListModule } from '@angular/material/list';
     CreateClientComponent,
     EditClientComponent,
     SalesComponent,
-    VistaInicioComponent
+    VistaInicioComponent,
+    NotificationComponent
 
   ],
   imports: [
@@ -63,7 +69,11 @@ import { MatListModule } from '@angular/material/list';
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatBadgeModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatInputModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

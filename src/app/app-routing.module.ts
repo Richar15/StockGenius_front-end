@@ -16,6 +16,7 @@ import { QuotationComponent } from '../components/quotation/quotation.component'
 import { MenucomComponent } from '../components/menucom/menucom.component';
 import { SalesComponent } from '../components/sales/sales.component';
 import { VistaInicioComponent } from '../components/vista-inicio/vista-inicio.component';
+import { NotificationComponent } from '../components/notification/notification.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'create-client', component: CreateClientComponent },
   { path: 'edit-client/:id', component: EditClientComponent },
   { path: 'sales', component: SalesComponent },
-  {path: 'inicio', component: VistaInicioComponent}
+  {path: 'inicio', component: VistaInicioComponent},
+  {path:'notif', component: NotificationComponent}
 ];
 
 @NgModule({
