@@ -77,6 +77,8 @@
             "buildTarget": "stockgenius:build"
           }
         },
+        
+
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -93,6 +95,7 @@
       }
     }
   },
+  
   "cli": {
 
     "analytics": "fec147e4-a820-4984-b707-5d49709daa90"

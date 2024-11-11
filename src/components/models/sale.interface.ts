@@ -15,6 +15,7 @@ export interface Client {
   lastName: string;
   phone: string;
   direction: string;
+  gmail: string;
 }
 
 
@@ -27,6 +28,7 @@ export interface Sale {
   clientName: string;
   productName: string;
   priceTotal: number;
+  total: string | number;
 }
 
 
@@ -36,4 +38,7 @@ export interface SaleResponse {
   'Las ventas Generadas de este mes han Sido de: '?: number;
   sales: Sale[];
   message?: string;
+  totalAmount: number;
+  
+
 }

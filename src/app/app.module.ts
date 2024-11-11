@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CommonModule } from '@angular/common';
 import { RegeneratePasswordComponentComponent } from '../components/regenerate-password-component/regenerate-password-component.component';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 import { ProductsComponent } from '../components/products/products.component';
 import { CreateProductComponent } from '../components/create-product/create-product.component';
 import { ProductImageUploadComponent } from '../components/product-image-upload/product-image-upload.component';
@@ -36,6 +38,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+registerLocaleData(localeEs, 'es');
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +71,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SweetAlert2Module.forRoot(),
     CommonModule,
     RouterModule,
+    BrowserModule,
     BrowserModule,
     ReactiveFormsModule,
     MatCardModule,
