@@ -22,7 +22,7 @@ export class RegeneratePasswordComponentComponent {
     this.lastRegenerationTime = Number(localStorage.getItem('lastRegenerationTime'));
 
     
-    if (this.lastRegenerationTime && Date.now() - this.lastRegenerationTime < 3600000) {
+    if (this.lastRegenerationTime && Date.now() - this.lastRegenerationTime <  3600000) {
   Swal.fire({
         icon: 'warning',
         title: 'Advertencia',
