@@ -92,6 +92,7 @@
       <p><mat-icon>person</mat-icon> {{ selectedClient.name }} {{ selectedClient.lastName }}</p>
       <p><mat-icon>phone</mat-icon> {{ selectedClient.phone }}</p>
       <p><mat-icon>home</mat-icon> {{ selectedClient.direction }}</p>
+      <p><mat-icon>email</mat-icon> {{ selectedClient.gmail }}</p>
     </mat-card-content>
   </mat-card>
 
@@ -102,7 +103,7 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item *ngFor="let item of selectedProducts">
-          {{ item.product.name }} - Cantidad: {{ item.quantity }} - Total: $ {{ item.product.price * item.quantity }} COP
+         <span>Producto: </span> {{ item.product.name }} - Cantidad: {{ item.quantity }} - Total: $ {{ item.product.price * item.quantity }} COP
         </mat-list-item>
       </mat-list>
       <p class="total">Total a Pagar: <strong>$ {{ sale.priceTotal }} COP</strong></p>

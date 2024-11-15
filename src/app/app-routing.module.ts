@@ -19,6 +19,7 @@ import { VistaInicioComponent } from '../components/vista-inicio/vista-inicio.co
 import { NotificationComponent } from '../components/notification/notification.component';
 
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'create-product', component: CreateProductComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'edit-client/:id', component: EditClientComponent },
   { path: 'sales', component: SalesComponent },
   {path: 'inicio', component: VistaInicioComponent},
-  {path:'notif', component: NotificationComponent}
+  {path:'notif', component: NotificationComponent},
+  
 ];
 
 @NgModule({

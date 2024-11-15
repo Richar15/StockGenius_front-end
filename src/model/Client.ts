@@ -4,5 +4,6 @@ export interface Client {
     lastName: string;
     phone: string;
     direction: string;
+    gmail: string;
   }
   

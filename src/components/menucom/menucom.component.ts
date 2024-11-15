@@ -18,7 +18,7 @@ export class MenucomComponent implements OnInit  {
   selectedProducts: { product: Product; quantity: number }[] = [];
   clients: Client[] = [];
   selectedClient: Client | null = null;
-  newClient: Client = { id: undefined, name: '', lastName: '', phone: '', direction: '' };
+  newClient: Client = { id: undefined, name: '', lastName: '', phone: '', direction: '', gmail: '' };
   showClientForm = false;
   sale: Sale = { id: null, date: '', priceTotal: 0, totalAmount: 0, products: [], client: null, clientName: '', productName: '' };
 
