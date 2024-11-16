@@ -1,6 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
+
 
 interface Seccion {
   titulo: string;
@@ -74,10 +76,14 @@ export class VistaInicioComponent {
     'Mejora la satisfacción del cliente con un servicio más rápido y eficiente',
     'Ahorra tiempo y reduce errores en tus procesos diarios'
   ];
-
-  constructor(private router: Router) {}
+ 
+  constructor(private router: Router, private authService: AuthService) {}
 
   navegar(ruta: string) {
     this.router.navigate([ruta]);
+  }
+  logout() {
+    this.authService.logout(); // Llama al método logout del servicio
+    this.router.navigate(['/start']); // Redirige al usuario a la página de login
   }
 }

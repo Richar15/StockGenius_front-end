@@ -16,10 +16,12 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) { }
+ 
   login() {
     this.authService.login(this.password).subscribe(
       response => {
         if (response === 'Login successful') {
+          this.authService.setAuthenticated(true); 
           this.router.navigate(['/inicio']);
         } else {
           Swal.fire({
@@ -39,6 +41,6 @@ export class LoginComponent {
       }
     );
   }
-
+  
 }
 

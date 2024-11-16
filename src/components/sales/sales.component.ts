@@ -59,26 +59,26 @@ private updateSalesData(response: SaleResponse) {
     console.log('Response received:', response);
     this.sales = response.sales || [];
     
-    // Extraer el total según el período seleccionado
+  
     const totals = {
         day: response['Las ventas Generadas  hoy Han Sido de: '],
         week: response['Las ventas Generadas en esta Semana han Sido de: '],
         month: response['Las ventas Generadas de este mes han Sido de: ']
     };
 
-    // Buscar el total correspondiente al período actual
+    
     let total = totals[this.selectedPeriod];
     
-    // Si el total es undefined o null, intentar calcular manualmente
+   
     if (total === undefined || total === null) {
         total = this.sales.reduce((sum, sale) => {
-            // Verifica si sale y sale.total existen y son válidos
+          
             if (!sale || !sale.priceTotal) {
                 return sum;
             }
             
             try {
-                // Limpia el string de total, removiendo el "COP" y las comas
+              
                 const cleanTotal = sale.priceTotal.toString().replace(/[^0-9.-]+/g, '');
                 const numericTotal = parseFloat(cleanTotal) || 0;
                 return sum + numericTotal;
@@ -94,7 +94,7 @@ private updateSalesData(response: SaleResponse) {
     
     console.log('Period:', this.selectedPeriod);
     console.log('Total amount:', this.totalAmount);
-    console.log('Sales:', this.sales); // Para ver el contenido exacto de las ventas
+    console.log('Sales:', this.sales); 
 }
 
   getSalesByDay(date: string) {
