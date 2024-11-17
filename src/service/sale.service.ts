@@ -12,7 +12,7 @@ export class SaleService {
   private saleUrl = 'http://localhost:8081/sales/createSale';
   private searchProductUrl = 'http://localhost:8081/products/searchProduct/';
   private searchClientUrl = 'http://localhost:8081/clients/searchClient/';
-  private createClientUrl = 'http://localhost:8081/client/createClient';
+  private createClientUrl = 'http://localhost:8081/clients/createClient';
 
   constructor(private http: HttpClient) {}
 

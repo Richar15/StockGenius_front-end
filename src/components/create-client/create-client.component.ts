@@ -31,7 +31,7 @@ export class CreateClientComponent {
       });
       return;
     }
-    const phonePattern = /^3\d{9}$/; // Empieza con '3' y 9 cifras adicionales
+    const phonePattern = /^3\d{9}$/; 
     if (!phonePattern.test(this.client.phone)) {
       Swal.fire({
         icon: 'warning',

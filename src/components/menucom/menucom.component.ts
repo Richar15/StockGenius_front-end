@@ -5,6 +5,8 @@ import { Sale } from "../../model/Sale";
 import { SaleService } from "../../service/sale.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+
 
 
 @Component({
@@ -13,16 +15,29 @@ import { Router } from "@angular/router";
   styleUrls: ['./menucom.component.css']
 })
 export class MenucomComponent implements OnInit  {
- 
   products: Product[] = [];
   selectedProducts: { product: Product; quantity: number }[] = [];
   clients: Client[] = [];
   selectedClient: Client | null = null;
   newClient: Client = { id: undefined, name: '', lastName: '', phone: '', direction: '', gmail: '' };
   showClientForm = false;
-  sale: Sale = { id: null, date: '', priceTotal: 0, totalAmount: 0, products: [], client: null, clientName: '', productName: '' };
+ 
+  sale: Sale = { 
+    id: null, 
+    date: '', 
+    priceTotal: 0, 
+    totalAmount: 0, 
+    products: [], 
+    client: null, 
+    clientName: '', 
+    productName: '' 
+  };
 
-  constructor(private saleService: SaleService, private router: Router) {}
+  constructor(
+    private saleService: SaleService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {}
 
@@ -32,7 +47,6 @@ export class MenucomComponent implements OnInit  {
         this.products = data;
       },
       (error) => {
-        // Muestra un error con SweetAlert2
         Swal.fire({
           icon: 'error',
           title: 'Error al buscar productos',
@@ -52,14 +66,41 @@ export class MenucomComponent implements OnInit  {
     this.updateTotal();
   }
 
+  
+
+  selectClient(client: Client): void {
+    this.selectedClient = client;
+    this.sale.client = client;
+  }
+
+
+
+  updateTotal(): void {
+    this.sale.priceTotal = this.selectedProducts.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    this.sale.totalAmount = this.selectedProducts.reduce((total, item) => total + item.quantity, 0);
+    this.sale.products = this.selectedProducts.map((item) => ({ ...item.product, amount: item.quantity }));
+  }
+  toggleClientForm(): void {
+    this.showClientForm = !this.showClientForm;
+    if (!this.showClientForm) {
+    
+      this.newClient = {
+        id: undefined,
+        name: '',
+        lastName: '',
+        phone: '',
+        direction: '',
+        gmail: ''
+      };
+    }
+  }
+
   searchClients(name: string): void {
     this.saleService.searchClientsByName(name).subscribe(
       (data) => {
         this.clients = data;
-        this.showClientForm = data.length === 0; // Muestra el formulario si no se encuentran clientes
       },
       (error) => {
-        // Muestra un error con SweetAlert2
         Swal.fire({
           icon: 'error',
           title: 'Error al buscar clientes',
@@ -69,20 +110,42 @@ export class MenucomComponent implements OnInit  {
     );
   }
 
-  selectClient(client: Client): void {
-    this.selectedClient = client;
-    this.sale.client = client;
+  createClient(): void {
+    this.saleService.createClient(this.newClient).subscribe(
+      (response: Client) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Cliente Creado',
+          text: 'El cliente ha sido registrado exitosamente.',
+        });
+        
+        this.selectedClient = response;
+        this.sale.client = response;
+        this.showClientForm = false;
+        
+       
+        this.clients = [response];
+        
+        this.newClient = {
+          id: undefined,
+          name: '',
+          lastName: '',
+          phone: '',
+          direction: '',
+          gmail: ''
+        };
+      },
+      (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al crear el cliente',
+          text: 'No se pudo crear el cliente. Por favor, intenta de nuevo.',
+        });
+      }
+    );
   }
-
-  updateTotal(): void {
-    this.sale.priceTotal = this.selectedProducts.reduce((total, item) => total + item.product.price * item.quantity, 0);
-    this.sale.totalAmount = this.selectedProducts.reduce((total, item) => total + item.quantity, 0);
-    this.sale.products = this.selectedProducts.map((item) => ({ ...item.product, amount: item.quantity }));
-  }
-
   completeSale(): void {
     if (!this.selectedClient) {
-      // Muestra un error si no hay cliente seleccionado
       Swal.fire({
         icon: 'warning',
         title: 'Cliente no seleccionado',
@@ -90,6 +153,7 @@ export class MenucomComponent implements OnInit  {
       });
       return;
     }
+
     this.sale.date = new Date().toISOString().split('T')[0];
     this.saleService.createSale(this.sale).subscribe(
       (pdfBlob) => {
@@ -100,7 +164,6 @@ export class MenucomComponent implements OnInit  {
         link.click();
       },
       (error) => {
-        // Muestra un error con SweetAlert2
         Swal.fire({
           icon: 'error',
           title: 'Error al generar la venta',
@@ -109,7 +172,9 @@ export class MenucomComponent implements OnInit  {
       }
     );
   }
+
   back(): void {
     this.router.navigate(['/inicio']);
   }
+ 
 }

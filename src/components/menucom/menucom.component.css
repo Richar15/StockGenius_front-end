@@ -1,52 +1,133 @@
+/* Estilos generales */
 .container {
-  padding: 20px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilos de la barra de herramientas */
+mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
 .spacer {
   flex: 1 1 auto;
 }
 
+/* Estilos de las tarjetas */
 mat-card {
   margin-bottom: 20px;
+  border-radius: 8px;
 }
 
-.product-item, .client-item {
-  margin-bottom: 10px;
+mat-card-title {
+  font-size: 1.2em;
+  font-weight: 500;
 }
 
+mat-card-content {
+  padding: 16px;
+}
+
+/* Estilos de los campos de formulario */
 mat-form-field {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
+/* Estilos de los botones */
+button[mat-raised-button] {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+/* Estilos de los elementos de producto y cliente */
+.product-item, .client-item {
+  margin-bottom: 16px;
+}
+
+/* Estilos de los datos del cliente */
+mat-card-content p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+mat-card-content p mat-icon {
+  margin-right: 8px;
+}
+
+/* Estilos del contenedor de botones */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 16px;
+}
+
+/* Estilos de las acciones del formulario */
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 16px;
+}
+
+/* Estilos del precio total */
 .total {
-  font-size: 18px;
-  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 16px;
 }
 
+/* Estilos del botón de retroceso */
 #back {
   position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
-.mat-mdc-card-header {
-  background-color: #f5f5f5;
-  padding: 16px;
+/* Estilos para el formulario de crear cliente */
+mat-card[ng-reflect-ng-if="true"] {
+  max-width: 250px;
+  margin: 0 auto 20px;
+  padding: 10px;
 }
 
-.mat-mdc-card-title {
-  margin: 0;
+mat-card[ng-reflect-ng-if="true"] mat-form-field {
+  width: 100%;
+  margin-bottom: 8px;
 }
 
-.mat-mdc-card-content {
-  padding: 16px;
+mat-card[ng-reflect-ng-if="true"] .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
 }
 
-.mat-mdc-card-actions {
-  padding: 8px;
+mat-card[ng-reflect-ng-if="true"] .form-actions {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 16px;
+}
+
+mat-card[ng-reflect-ng-if="true"] .form-actions button {
+  margin-bottom: 6px;
+  font-size: 0.9em;
+  padding: 4px 8px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+  mat-card-content {
+    padding: 12px;
+  }
+
+  .button-container, .form-actions {
+    flex-direction: column;
+  }
+
+  button[mat-raised-button] {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
 }

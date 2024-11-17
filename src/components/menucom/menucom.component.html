@@ -1,4 +1,5 @@
-<mat-toolbar color="primary">
+
+ <mat-toolbar color="primary">
   <span>Crear Venta</span>
   <span class="spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -74,7 +75,6 @@
       <button mat-raised-button color="primary" (click)="searchClients(clientName.value)">Buscar</button>
     </mat-card-content>
   </mat-card>
-
   <mat-card *ngFor="let client of clients" class="client-item">
     <mat-card-header>
       <mat-card-title>{{ client.name }} {{ client.lastName }}</mat-card-title>
@@ -95,7 +95,61 @@
       <p><mat-icon>email</mat-icon> {{ selectedClient.gmail }}</p>
     </mat-card-content>
   </mat-card>
+<mat-card>
+ 
+  <mat-card-content>
+    <div class="button-container">
+    
+      <button mat-raised-button color="accent" (click)="toggleClientForm()">
+        <mat-icon>person_add</mat-icon>
+        Agregar Cliente
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="showClientForm">
+  <mat-card-header>
+    <mat-card-title>Crear Nuevo Cliente</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #clientForm="ngForm" (ngSubmit)="createClient()">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="newClient.name" name="name" required>
+      </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput [(ngModel)]="newClient.lastName" name="lastName" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="newClient.phone" name="phone" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input matInput [(ngModel)]="newClient.direction" name="direction" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Gmail</mat-label>
+        <input matInput [(ngModel)]="newClient.gmail" name="gmail" required type="email">
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!clientForm.form.valid">
+          <mat-icon>save</mat-icon>
+          Guardar Cliente
+        </button>
+        <button mat-button type="button" (click)="toggleClientForm()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
   <mat-card>
     <mat-card-header>
       <mat-card-title>Resumen de la Compra</mat-card-title>
@@ -118,4 +172,4 @@
   <button mat-fab color="warn" id="back" (click)="back()">
     <mat-icon>arrow_back</mat-icon>
   </button>
-</div>
+</div> 
