@@ -1,35 +1,94 @@
-<div>
-  <button id="back" type="button" (click)="back()">Atrás</button> 
+<div style="margin-left: 20px;">
+  <mat-card class="quotation-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>description</mat-icon>
+        Cree Cotizaciones para sus Clientes Facil y Rapido
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Cliente</mat-label>
+          <input matInput [(ngModel)]="clientName" (input)="searchClient(clientName)" placeholder="Buscar Cliente">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-list *ngIf="clientResults.length > 0" class="search-results">
+          <mat-list-item *ngFor="let client of clientResults">
+            <span matListItemTitle>{{ client.name }}</span>
+            <button mat-icon-button color="primary" matListItemMeta (click)="selectClient(client)">
+              <mat-icon>person_add</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </div>
 
-  <h2> Crear Cotizaciones</h2>
-  <h4>Cree Cotizaciones Para Sus Clientes Facil y Rapido!!!!</h4>
-  <div>
-    <input type="text" [(ngModel)]="searchName" placeholder="Buscar Producto" />
-    <button (click)="searchProducts()">Buscar</button>
-  </div>
+      <mat-card *ngIf="selectedClient" class="selected-client">
+        <mat-card-content>
+          <mat-icon>person</mat-icon>
+          <span>Cliente Seleccionado: {{ selectedClient.name }}</span>
+        </mat-card-content>
+      </mat-card>
 
-  <div *ngIf="searchResults.length > 0">
-    <h3>Resultados de la búsqueda</h3>
-    <ul>
-      <li *ngFor="let product of searchResults">
-        {{ product.name }} - Precio: $ {{ product.price }} <span>COP</span>
-        
-        <!-- Entrada para la cantidad -->
-        <input id="xd" type="number" [(ngModel)]="product.quantity" placeholder="Cantidad" min="1" style="width: 70px;" />
-        
-        <button (click)="addProductToQuotation(product)">Agregar a Cotización</button>
-      </li>
-    </ul>
-  </div>
+      <div class="form-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Producto</mat-label>
+          <input matInput [(ngModel)]="productName" (input)="searchProduct(productName)" placeholder="Buscar Producto">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-list *ngIf="productResults.length > 0" class="search-results">
+          <mat-list-item *ngFor="let product of productResults">
+            <span matListItemTitle>{{ product.name }}</span>
+            <button mat-icon-button color="primary" matListItemMeta (click)="selectProduct(product)">
+              <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </div>
 
-  <div *ngIf="selectedProducts.length > 0">
-    <h3>Productos Seleccionados para Cotización</h3>
-    <ul>
-      <li *ngFor="let product of selectedProducts">
-        {{ product.name }} - Cantidad: {{ product.amount }} - Precio por unidad: ${{ product.price }} <span>COP</span>
-      </li>
-     
-    </ul>
-    <button (click)="generateQuotation()">Generar Cotización PDF</button>
-  </div>
+      <mat-card *ngIf="selectedProduct" class="selected-product">
+        <mat-card-content>
+          <h3>
+            <mat-icon>shopping_cart</mat-icon>
+            Producto: {{ selectedProduct.name }}
+          </h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" [(ngModel)]="productAmount" placeholder="Enter amount">
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addProduct(productAmount)">
+            <mat-icon>add</mat-icon>
+            Agregar a Cotización
+          </button>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="selected-products">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>list</mat-icon>
+            Productos Seleccionados
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let product of selectedProducts">
+              <span matListItemTitle>{{ product.name }}</span>
+              <span matListItemLine>Amount: {{ product.amount }}</span>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="accent" (click)="createQuotation()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Generar PDF
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <button mat-fab color="warn" id="back" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 </div>
