@@ -1,12 +1,11 @@
 <div class="products-container">
-  <h2>Productos</h2>
-
   <div class="button-group">
     <div class="left-buttons">
+      <button (click)="navigateToinicio()" class="blue-button">Atrás</button>
       <button (click)="navigateToCreateProduct()" class="blue-button">
         Crear Producto
       </button>
-      <button (click)="navigateToinicio()" class="blue-button"> Atrás </button>
+
       <button (click)="navigateToAddImage()" class="blue-button">
         Agregar Imagen
       </button>
@@ -33,7 +32,10 @@
         class="product-image"
       />
       <h3>{{ product.name }}</h3>
-      <p><strong>Precio: </strong> <strong>$</strong> {{ product.price }} <strong>COP</strong></p>
+      <p>
+        <strong>Precio: </strong> <strong>$</strong> {{ product.price }}
+        <strong>COP</strong>
+      </p>
       <p><strong>Disponibles:</strong> {{ product.amount }}</p>
       <p><strong>Descripción:</strong> {{ product.description }}</p>
       <div class="button-group">
