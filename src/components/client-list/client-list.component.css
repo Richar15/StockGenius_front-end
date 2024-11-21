@@ -1,154 +1,196 @@
-  .container {
-    max-width: 100%;
-    margin: 0 auto;
-  }
+/* Estilos originales */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
 
-  }
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
 
+.left-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: 20px; /* Añade un margen izquierdo para mover los botones hacia la derecha */
+}
+
+.buttons:hover {
+  opacity: 0.9;
+}
+
+input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  margin-right: 5px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-right: 20px; /* Cambia 'auto' por un valor fijo */
+}
+
+.search-container input[type="text"] {
+ 
+  width: 100%;
+  max-width: 300px; /* Reduce el ancho máximo de 400px a 300px */
+  margin-right: 0; /* Cambia esto de 5px a 0 */
+  font-size: 1rem;
+}
+
+.search-button {
+  cursor: pointer;
+}
+
+.search-button img {
+  width: 20px;
+  height: auto;
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #f3b5b5;
+  color: #0a2c12;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 90%; /* Limita el ancho máximo */
+  margin: 0 auto; /* Centra la tabla */
+  padding: 0 20px; /* Añade espacio en los lados */
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0; /* Añade margen arriba y abajo */
+}
+
+.table-container th,
+.table-container td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #b8c9de;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #b8c9de;
+  color: #f0f0f0;
+  font-weight: 600;
+}
+
+.table-container td {
+  color: #6e7c9d;
+  font-weight: 600;
+}
+
+.table-container .actions-column {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.table-container .actions-column button {
+  border: none;
+  padding: 0.25rem 0.75rem;
+}
+
+.blue-button {
+  background-color: #b8c9de;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  color: black;
+}
+
+.blue-button:hover {
+  background: #6e7c9d;
+}
+
+.edit-button {
+  background-color: #7ed957;
+  color: white;
+  border-radius: 4px;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button {
+  background-color: #ff3131;
+  color: white;
+  border-radius: 4px;
+}
+
+.delete-button:hover {
+  background-color: #861722;
+}
+
+/* Añadir media queries para hacer el diseño responsive */
+@media (max-width: 768px) {
   .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .left-buttons {
-    display: flex;
-    gap: 10px;
-  }
-
-  .buttons:hover {
-    opacity: 0.9;
-  }
-
-  input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px;
-    margin-right: 5px;
-
+    margin-bottom: 1rem;
   }
 
   .search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-
-    input[type="text"] {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      border-radius: 4px;
-      width: 100%;
-      max-width: 400px;
-      margin-right: 5px;
-      font-size: 1rem;
-    }
+    width: 100%;
   }
 
-  .search-button {
-    background-color: transparent;
-    border: none;
+  .search-container input[type="text"] {
+    max-width: none;
   }
 
-  .search-button img {
-    width: 20px;
-    height: auto;
+  .table-container .actions-column {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
   }
 
-  .alert {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 5px;
-    text-align: center;
-    background-color: #f3b5b5;
-    color: #0a2c12;
-
+  h1 {
+    font-size: 1.5rem;
   }
 
-  .table-container {
-    overflow-x: auto;
-
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #f0f0f0;
-      border-radius: 10px;
-      overflow: hidden;
-
-
-      th,
-      td {
-        padding: 12px;
-        text-align: center;
-        border: 1px solid #b8c9de;
-        border-bottom: 1px solid #ddd;
-      }
-
-      th {
-        background-color: #b8c9de;
-        color: #f0f0f0;
-        font-weight: 600;
-      }
-
-      td {
-        color: #6e7c9d;
-        font-weight: 600;
-      }
-
-      .actions-column {
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-
-        button {
-          border: none;
-          padding: 0.25rem 0.75rem;
-
-        }
-      }
-    }
+  .left-buttons {
+    flex-wrap: wrap;
   }
 
-  .blue-button {
-    background-color: #b8c9de;
-    border: none;
-    border-radius: 4px;
-    padding: 0.25rem 0.75rem;
-    color: black;
+  .table-container th,
+  .table-container td {
+    padding: 8px;
+    font-size: 0.9rem;
   }
+}
 
-  .blue-button:hover {
-    background: #6e7c9d;
 
-  }
 
-  .edit-button {
-    background-color: #7ed957;
-    color: white;
-    border-radius: 4px;
-  }
-
-  .edit-button:hover {
-    background-color: #218838;
-  }
-
-  .delete-button {
-    background-color: #ff3131;
-    color: white;
-    border-radius: 4px;
-  }
-
-  .delete-button:hover {
-    background-color: #861722;
-    
-  }
